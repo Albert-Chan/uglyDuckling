@@ -8,7 +8,7 @@ from django.template.context import RequestContext
 from django.views.decorators.csrf import csrf_protect
 
 def hello(request):
-    return HttpResponse("Hello world")
+    return HttpResponse("Hello world!")
 
 def comment(request):
     errors = []
