@@ -1,0 +1,9 @@
+<html>
+<body>
+{% if user.is_authenticated %}
+  <p>Hello, {{ user.username }}.</p>
+{% else %}
+  <p>Welcome.</p>
+{% endif %}
+</body>
+</html>
