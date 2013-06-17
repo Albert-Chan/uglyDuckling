@@ -1,14 +1,13 @@
 #!/usr/bin/env python
-from django import forms
+from django.contrib import auth
+from django.contrib.auth import authenticate
 from django.contrib.auth.forms import UserCreationForm
-from django.core.mail import send_mail
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response
 from django.template.context import RequestContext
-from django.views.decorators.csrf import csrf_protect
 
 def hello(request):
-    return HttpResponse("Hello world!")
+    return render_to_response('hello.html')
 
 def comment(request):
     errors = []
@@ -19,16 +18,18 @@ def comment(request):
             errors.append('Enter a message.')
         if not errors:
             return HttpResponseRedirect('/hello/')
-    return render_to_response('comments/comment.html',{'errors': errors},context_instance=RequestContext(request))
+    return render_to_response('comments/comment.html', {'errors': errors, }, context_instance=RequestContext(request))
 
 def register(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
         if form.is_valid():
-            new_user = form.save()
+            form.save()
+            user = authenticate(username=form.cleaned_data['username'], password=form.cleaned_data['password1']) 
+            auth.login(request, user)
+            if request.session.test_cookie_worked():
+                request.session.delete_test_cookie()
             return HttpResponseRedirect("/hello/")
     else:
         form = UserCreationForm()
-    return render_to_response("registration/register.html", {
-        'form': form,
-    }, context_instance=RequestContext(request))
+    return render_to_response("registration/register.html", {'form': form, }, context_instance=RequestContext(request))
