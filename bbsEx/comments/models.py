@@ -8,6 +8,6 @@ class Comment(models.Model):
     content = models.CharField(max_length=60000)
     author = models.ForeignKey(User)
     #authors = models.ManyToManyField(User)?
-    date = models.DateField()
+    time = models.DateTimeField()
     def __unicode__(self):
         return self.subject

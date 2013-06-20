@@ -8,7 +8,7 @@ import datetime
 
 @login_required
 def comment(request):
-    current_comments = Comment.objects.all()
+    current_comments = Comment.objects.order_by('-time')
     if request.method == 'POST':
         form = CommentForm(request.POST)
         if form.is_valid():
@@ -17,7 +17,7 @@ def comment(request):
                 subject=fromData['subject'],
                 author=request.user,
                 content=fromData['message'],
-                date=datetime.datetime.now(),
+                time=datetime.datetime.now(),
             )
             c.save()
             return HttpResponseRedirect('/comment')
