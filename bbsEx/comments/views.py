@@ -6,6 +6,7 @@ from django.template.context import RequestContext
 import datetime
 
 def comment(request):
+    current_comments = Comment.objects.all()
     if request.method == 'POST':
         form = CommentForm(request.POST)
         if form.is_valid():
@@ -22,7 +23,7 @@ def comment(request):
         form = CommentForm(
             initial={'subject': 'Your subject', 'message': 'Put your comments here. Max 60000 words!'}
         )
-    return render_to_response('comments/comment.html', {'form': form}, context_instance=RequestContext(request))
+    return render_to_response('comments/comment.html', {'form': form, 'current_comments' : current_comments}, context_instance=RequestContext(request))
 
 
 class CommentForm(forms.Form):
