@@ -3,6 +3,7 @@ from django import forms
 from django.http.response import HttpResponseRedirect
 from django.shortcuts import render_to_response
 from django.template.context import RequestContext
+import datetime
 
 def comment(request):
     if request.method == 'POST':
@@ -11,7 +12,9 @@ def comment(request):
             fromData = form.cleaned_data
             c = Comment(
                 subject=fromData['subject'],
+                author=request.user,
                 content=fromData['message'],
+                date=datetime.datetime.now(),
             )
             c.save()
             return HttpResponseRedirect('/hello/')
