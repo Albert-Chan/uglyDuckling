@@ -9,6 +9,9 @@ from django.template.context import RequestContext
 def hello(request):
     return render_to_response('hello.html')
 
+def index(request):
+    return render_to_response('index.html')
+
 def register(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)

@@ -19,6 +19,7 @@ urlpatterns = patterns('',
     (r'^comment/$', comment),
     (r'^hello/$', views.hello),
     (r'^register/$', views.register),
-    (r'^$', login),
+    (r'^$', views.index),
+    (r'^login/$', login),
     (r'^logout/$', logout),
 )
