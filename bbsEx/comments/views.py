@@ -1,10 +1,12 @@
 from comments.models import Comment
 from django import forms
+from django.contrib.auth.decorators import login_required
 from django.http.response import HttpResponseRedirect
 from django.shortcuts import render_to_response
 from django.template.context import RequestContext
 import datetime
 
+@login_required
 def comment(request):
     current_comments = Comment.objects.all()
     if request.method == 'POST':
@@ -18,7 +20,7 @@ def comment(request):
                 date=datetime.datetime.now(),
             )
             c.save()
-            return HttpResponseRedirect('/hello/')
+            return HttpResponseRedirect('/comment')
     else:
         form = CommentForm(
             initial={'subject': 'Your subject', 'message': 'Put your comments here. Max 60000 words!'}
