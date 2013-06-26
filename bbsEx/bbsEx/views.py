@@ -10,7 +10,8 @@ def hello(request):
     return render_to_response('hello.html',  {'user': request.user, })
 
 def index(request):
-    return render_to_response('index.html')
+    registerForm = UserCreationForm()
+    return render_to_response('index.html', {'signUpForm': registerForm, }, context_instance=RequestContext(request) )
 
 def register(request):
     if request.method == 'POST':
@@ -21,7 +22,5 @@ def register(request):
             auth.login(request, user)
             if request.session.test_cookie_worked():
                 request.session.delete_test_cookie()
-            return HttpResponseRedirect("/hello/")
-    else:
-        form = UserCreationForm()
-    return render_to_response("registration/register.html", {'form': form, }, context_instance=RequestContext(request))
+            return HttpResponseRedirect("/comment/")
+    #return render_to_response("registration/register.html", {'form': UserCreationForm(), }, context_instance=RequestContext(request))

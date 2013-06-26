@@ -12,11 +12,11 @@ def comment(request):
     if request.method == 'POST':
         form = CommentForm(request.POST)
         if form.is_valid():
-            fromData = form.cleaned_data
+            formData = form.cleaned_data
             c = Comment(
-                subject=fromData['subject'],
+                subject=formData['subject'],
                 author=request.user,
-                content=fromData['message'],
+                content=formData['message'],
                 time=datetime.datetime.now(),
             )
             c.save()
