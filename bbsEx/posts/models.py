@@ -33,7 +33,7 @@ class PostHistory(models.Model):
     modification_datatime = models.DateTimeField()
     author = models.ForeignKey(User)
     #update is calculated by client side javascript
-    update = models.CharField()
+    update = models.CharField(max_length=60000)
     
 class Anchoring(models.Model):
     post = models.ForeignKey(Post)
@@ -53,13 +53,13 @@ class InterestedTopic(models.Model):
 
 class Following(models.Model):
     """The list of the people who the user is following"""
-    user = models.ForeignKey(User)
-    following = models.ForeignKey(User)
+    user = models.ForeignKey(User, related_name='following_user')
+    following = models.ForeignKey(User, related_name='following_following')
     
 class Follower(models.Model):
     """The list of the user's follower"""
-    user = models.ForeignKey(User)
-    follower = models.ForeignKey(User)
+    user = models.ForeignKey(User, related_name='follower_user')
+    follower = models.ForeignKey(User, related_name='follower_follower')
 
 class Read(models.Model):
     user = models.ForeignKey(User)
