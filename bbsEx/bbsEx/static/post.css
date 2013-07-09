@@ -40,3 +40,9 @@ float: left;
 color:gray;
 float: right;
 }
+
+.new_post {
+margin: 0 auto;
+width: 980px;
+overflow: hidden;
+}
