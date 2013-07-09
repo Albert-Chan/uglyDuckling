@@ -22,5 +22,5 @@ def register(request):
             auth.login(request, user)
             if request.session.test_cookie_worked():
                 request.session.delete_test_cookie()
-            return HttpResponseRedirect("/comment/")
+            return HttpResponseRedirect("/posts/")
     #return render_to_response("registration/register.html", {'form': UserCreationForm(), }, context_instance=RequestContext(request))

@@ -13,15 +13,16 @@
             Please correct the error{{ form.errors|pluralize }} below.
         </p>
     {% endif %}
-    Current Comments:
-    {% for comment in current_comments %}
+    Current Posts:
+    {% for post in current_posts %}
     	<li>
-    	Author:{{ comment.author }}<br>
-    	Post time:{{ comment.time }}<br>
-    	Subject:{{ comment.subject }}<br>
-    	Keywords:{{ comment.keywords }}<br>
-    	Content:{{ comment.content }}<br>
+    	Author:{{ post.author }}<br>
+    	Post time:{{ post.time }}<br>
+    	Subject:{{ post.subject }}<br>
+    	Keywords:{{ post.keywords }}<br>
+    	Content:{{ post.content }}<br>
     	</li>
+    	<br>
     {% endfor %}
 
     <form action="" method="post">{% csrf_token %}

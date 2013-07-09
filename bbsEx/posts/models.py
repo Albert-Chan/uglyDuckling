@@ -1,5 +1,5 @@
 from django.contrib.auth.models import User
-from django.core.exceptions import ValidationError
+from django.core.exceptions import ValidationError, ObjectDoesNotExist
 from django.db import models
 
 class Topic(models.Model):
@@ -10,6 +10,15 @@ class Topic(models.Model):
             raise ValidationError("no self referential models")
     def __unicode__(self):
         return self.name
+    
+def getNoneTopic():
+    try:
+        e = Topic.objects.get(name='None')
+    except ObjectDoesNotExist:
+        t=Topic(name='None',parent=None)
+        t.save()
+        return t
+    return e
 
 class Post(models.Model):
     subject = models.CharField(max_length=30)
@@ -17,14 +26,14 @@ class Post(models.Model):
     content = models.CharField(max_length=60000)
     author = models.ForeignKey(User)
     time = models.DateTimeField()
-    topic = models.ForeignKey(Topic)
-    read_count = models.BigIntegerField()
-    followed_count = models.IntegerField()
+    topic = models.ForeignKey(Topic, default=getNoneTopic)
+    read_count = models.BigIntegerField(default=0)
+    followed_count = models.IntegerField(default=0)
     #public = 4
     #follower = 2
     #private = 1
-    read_acl = models.IntegerField()
-    write_acl = models.BooleanField()
+    read_acl = models.IntegerField(default=1)
+    write_acl = models.BooleanField(default=True)
     def __unicode__(self):
         return self.subject
 

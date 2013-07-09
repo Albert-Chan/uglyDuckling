@@ -1,5 +1,5 @@
 from bbsEx import views
-from comments.views import comment
+from posts.views import post
 from django.conf.urls import patterns, include
 from django.contrib import admin
 from django.contrib.auth.views import login, logout
@@ -20,5 +20,5 @@ urlpatterns = patterns('',
     (r'^$', views.index),
     (r'^login/$', login),
     (r'^logout/$', logout),
-    (r'^comment/$', comment),
+    (r'^posts/$', post),
 )
