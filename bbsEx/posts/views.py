@@ -15,14 +15,11 @@ def post(request):
         form = PostsForm(request.POST)
         if form.is_valid():
             formData = form.cleaned_data
-            t=Topic(name='None',parent=None)
-            t.save();
             c = Post(
                 subject=formData['subject'],
                 author=request.user,
                 content=formData['message'],
                 time=datetime.datetime.now(),
-                topic=t
             )
             c.save()
             return HttpResponseRedirect('/posts')

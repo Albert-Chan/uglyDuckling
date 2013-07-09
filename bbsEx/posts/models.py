@@ -3,7 +3,7 @@ from django.core.exceptions import ValidationError, ObjectDoesNotExist
 from django.db import models
 
 class Topic(models.Model):
-    name = models.CharField(max_length=48)
+    name = models.CharField(max_length=48, unique=True)
     parent = models.ForeignKey('self', null=True, blank=True)
     def clean(self):
         if self.parent.id == self.id:
