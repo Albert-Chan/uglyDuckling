@@ -15,12 +15,28 @@ def post(request):
         form = PostsForm(request.POST)
         if form.is_valid():
             formData = form.cleaned_data
-            c = Post(
-                subject=formData['subject'],
-                author=request.user,
-                content=formData['message'],
-                time=datetime.datetime.now(),
-            )
+            if(len(formData['topic']) != 0):
+                n = formData['topic']
+                topics = Topic.objects.filter(name=n)
+                if(len(topics) == 0):
+                    t = Topic(name=n, parent=None)
+                    t.save()
+                else:
+                    t = topics[0]    
+                c = Post(
+                    subject=formData['subject'],
+                    author=request.user,
+                    content=formData['message'],
+                    time=datetime.datetime.now(),
+                    topic=t,
+                )
+            else:
+                c = Post(
+                    subject=formData['subject'],
+                    author=request.user,
+                    content=formData['message'],
+                    time=datetime.datetime.now(),
+                )
             c.save()
             return HttpResponseRedirect('/posts')
     else:
@@ -31,4 +47,5 @@ def post(request):
 
 class PostsForm(forms.Form):
     subject = forms.CharField(max_length=100)
+    topic = forms.CharField(max_length=48)
     message = forms.CharField(widget=forms.Textarea)
