@@ -4,6 +4,7 @@ import os
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 PROJECT_PATH = os.path.realpath(os.path.dirname(__file__))
+STATIC_PATH = PROJECT_PATH + '/static/'
 
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),
