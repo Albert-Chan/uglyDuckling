@@ -47,5 +47,5 @@ def post(request):
 
 class PostsForm(forms.Form):
     subject = forms.CharField(max_length=100)
-    topic = forms.CharField(max_length=48)
+    topic = forms.CharField(max_length=48, required=False)
     message = forms.CharField(widget=forms.Textarea)
