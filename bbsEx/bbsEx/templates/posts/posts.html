@@ -12,7 +12,7 @@
     <div class="container">
     {% for post in current_posts %}
     	<div class="feed_item">
-    		<div class="title">{{ post.subject }}</div>
+    		<div class="title"><a href={{ post.getValidLink }}>{{ post.subject }}</a></div>
     		<div>
     			<div class="author">{{ post.author }}</div>
     			<div class="datetime">{{ post.time }}</div>
