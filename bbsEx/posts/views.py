@@ -7,9 +7,15 @@ from django.shortcuts import render_to_response
 from django.template.context import RequestContext
 import datetime
 
+@login_required
+def post(request, post_id):
+    post_id = int(post_id)
+    post = Post.objects.get(id=post_id)
+    return render_to_response('posts/post.html', {'post' : post}, context_instance=RequestContext(request))
+
 # Create your views here.
 @login_required
-def post(request):
+def posts(request):
     current_posts = Post.objects.order_by('-time')
     if request.method == 'POST':
         form = PostsForm(request.POST)

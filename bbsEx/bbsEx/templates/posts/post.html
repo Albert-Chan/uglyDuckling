@@ -1,0 +1,42 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+    "http://www.w3.org/TR/html4/strict.dtd"
+    >
+<html>
+<head>
+    <title>bbsEx</title>
+    <link rel="shortcut icon" type="image/x-icon" href="http://127.0.0.1:8000/site_static/logo.ico" />
+    <link rel="stylesheet" type="text/css" href="http://127.0.0.1:8000/site_static/post.css" />
+</head>
+<body>
+    <h1>bbsEx</h1>
+    <div class="container">
+    	<div class="feed_item">
+    		<div class="title">{{ post.subject }}</div>
+    		<div>
+    			<div class="author">{{ post.author }}</div>
+    			<div class="datetime">{{ post.time }}</div>
+    		</div>
+    		<br/>
+    		<div>
+    			<span class="topic_name">{{ post.topic.name }}</span>
+    		</div>
+    		<div class="content">{{ post.content }}</div>
+    	</div>
+    </div>
+    <!-- 
+    <div class="new_post">
+        {% if form.errors %}
+        <div style="color: red;">
+            Please correct the error{{ form.errors|pluralize }} below.
+        </div>
+    {% endif %}
+    	<div>
+    	<form action="" method="post">{% csrf_token %}
+        	{{ form.as_p }}
+        	<input type="submit" value="Submit">
+    	</form>
+    	</div>
+    </div>
+     -->
+</body>
+</html>
