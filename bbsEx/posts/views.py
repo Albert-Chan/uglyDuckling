@@ -19,7 +19,8 @@ def t(request, topic_name):
 def p(request, post_id):
     post_id = int(post_id)
     post = Post.objects.get(id=post_id)
-    return render_to_response('posts/post.html', {'post' : post}, context_instance=RequestContext(request))
+    current_posts = { post }
+    return render_to_response('posts/post.html', {'current_posts' : current_posts}, context_instance=RequestContext(request))
 
 # Create your views here.
 @login_required
