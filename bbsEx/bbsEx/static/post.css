@@ -32,8 +32,12 @@ color: blue;
 }
 
 .topic_name {
-color: red;
-background-color: green;
+color: white;
+background-color: gray;
+}
+
+#topic_a {
+color: white;
 }
 
 .author {
@@ -50,4 +54,18 @@ float: right;
 margin: 0 auto;
 width: 980px;
 overflow: hidden;
+}
+
+a:visited {
+color: #4a6b82;
+}
+
+a:hover {
+text-decoration: underline;
+}
+
+a {
+color: #0077cc;
+text-decoration: none;
+cursor: pointer;
 }
