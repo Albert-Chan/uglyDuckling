@@ -18,6 +18,7 @@ margin: 0 auto;
 width: 980px;
 border-bottom: 1px solid #eaeaea;
 overflow: hidden;
+padding: 10px;
 }
 
 .title {

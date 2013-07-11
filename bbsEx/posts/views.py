@@ -9,7 +9,7 @@ import datetime
 
 @login_required
 def t(request, topic_name):
-    current_posts = Post.objects.filter(topic__name=topic_name)
+    current_posts = Post.objects.filter(topic__name=topic_name).order_by('-time')
     form = PostsForm(
             initial={'subject': 'Your subject', 'message': 'Put your comments here. Max 60000 words!'}
         )
@@ -52,7 +52,7 @@ def posts(request):
                     time=datetime.datetime.now(),
                 )
             c.save()
-            return HttpResponseRedirect('/posts')
+            return HttpResponseRedirect('/p')
     else:
         form = PostsForm(
             initial={'subject': 'Your subject', 'message': 'Put your comments here. Max 60000 words!'}
