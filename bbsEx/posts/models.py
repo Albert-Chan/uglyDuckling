@@ -10,6 +10,8 @@ class Topic(models.Model):
             raise ValidationError("no self referential models")
     def __unicode__(self):
         return self.name
+    def getValidLink(self):
+        return "/t/" + self.name
     
 def getNoneTopic():
     try:

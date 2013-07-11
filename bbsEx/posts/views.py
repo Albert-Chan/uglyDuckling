@@ -8,6 +8,14 @@ from django.template.context import RequestContext
 import datetime
 
 @login_required
+def t(request, topic_name):
+    current_posts = Post.objects.filter(topic__name=topic_name)
+    form = PostsForm(
+            initial={'subject': 'Your subject', 'message': 'Put your comments here. Max 60000 words!'}
+        )
+    return render_to_response('posts/posts.html', {'form': form, 'current_posts' : current_posts}, context_instance=RequestContext(request))
+
+@login_required
 def post(request, post_id):
     post_id = int(post_id)
     post = Post.objects.get(id=post_id)
