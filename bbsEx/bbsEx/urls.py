@@ -3,7 +3,7 @@ from django.conf import settings
 from django.conf.urls import patterns, include
 from django.contrib import admin
 from django.contrib.auth.views import login, logout
-from posts.views import post, posts, t
+from posts.views import p, posts, t
 # Uncomment the next two lines to enable the admin:
 admin.autodiscover()
 
@@ -21,8 +21,8 @@ urlpatterns = patterns('',
     (r'^$', views.index),
     (r'^login/$', login),
     (r'^logout/$', logout),
-    (r'^posts/$', posts),
-    (r'^posts/(\d+)/.+$', post),
+    (r'^p/$', posts),
+    (r'^p/(\d+)/.+$', p),
     (r'^t/(.+)$', t),
     (r'^site_static/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.STATIC_PATH}),
 )

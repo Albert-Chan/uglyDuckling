@@ -39,7 +39,7 @@ class Post(models.Model):
     def __unicode__(self):
         return self.subject
     def getValidLink(self):
-        return str(self.id) + '/' + self.subject.replace(' ','-')
+        return "/p/" + str(self.id) + '/' + self.subject.replace(' ','-')
 
 class PostHistory(models.Model):
     post = models.ForeignKey(Post)

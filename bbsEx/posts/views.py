@@ -16,7 +16,7 @@ def t(request, topic_name):
     return render_to_response('posts/posts.html', {'form': form, 'current_posts' : current_posts}, context_instance=RequestContext(request))
 
 @login_required
-def post(request, post_id):
+def p(request, post_id):
     post_id = int(post_id)
     post = Post.objects.get(id=post_id)
     return render_to_response('posts/post.html', {'post' : post}, context_instance=RequestContext(request))
