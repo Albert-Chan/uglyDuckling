@@ -7,6 +7,10 @@ vertical-align: baseline;
 background: transparent;
 }
 
+.banner {
+	width: 100%;
+}
+
 .container {
 text-align: left;
 width: 100%;
