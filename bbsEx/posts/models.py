@@ -13,7 +13,7 @@ def getNoneTopic():
     try:
         e = Topic.objects.get(name='None')
     except ObjectDoesNotExist:
-        t=Topic(name='None',parent=None)
+        t=Topic(name='None')
         t.save()
         return t
     return e
