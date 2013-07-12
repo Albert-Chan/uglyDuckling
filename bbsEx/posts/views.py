@@ -10,10 +10,7 @@ import datetime
 @login_required
 def t(request, topic_name):
     current_posts = Post.objects.filter(topic__name=topic_name).order_by('-time')
-    form = PostsForm(
-            initial={'subject': 'Your subject', 'message': 'Put your comments here. Max 60000 words!'}
-        )
-    return render_to_response('posts/posts.html', {'form': form, 'current_posts' : current_posts}, context_instance=RequestContext(request))
+    return doPost(request, current_posts)
 
 @login_required
 def p(request, post_id):
@@ -22,14 +19,17 @@ def p(request, post_id):
     current_posts = { post }
     return render_to_response('posts/post.html', {'current_posts' : current_posts}, context_instance=RequestContext(request))
 
-# Create your views here.
-@login_required
-def posts(request):
-    current_posts = Post.objects.order_by('-time')
+def doPost(request, current_posts):
     if request.method == 'POST':
         form = PostsForm(request.POST)
         if form.is_valid():
             formData = form.cleaned_data
+            c = Post(
+                subject=formData['subject'],
+                author=request.user,
+                content=formData['message'],
+                time=datetime.datetime.now(),
+            )
             if(len(formData['topic']) != 0):
                 n = formData['topic']
                 topics = Topic.objects.filter(name=n)
@@ -37,28 +37,22 @@ def posts(request):
                     t = Topic(name=n)
                     t.save()
                 else:
-                    t = topics[0]    
-                c = Post(
-                    subject=formData['subject'],
-                    author=request.user,
-                    content=formData['message'],
-                    time=datetime.datetime.now(),
-                    topic=t,
-                )
-            else:
-                c = Post(
-                    subject=formData['subject'],
-                    author=request.user,
-                    content=formData['message'],
-                    time=datetime.datetime.now(),
-                )
+                    t = topics[0]  
+                c.topic = t
             c.save()
             return HttpResponseRedirect('/p')
     else:
         form = PostsForm(
             initial={'subject': 'Your subject', 'message': 'Put your comments here. Max 60000 words!'}
         )
-    return render_to_response('posts/posts.html', {'form': form, 'current_posts' : current_posts}, context_instance=RequestContext(request))
+    return render_to_response('posts/posts.html', {'form': form, 'current_posts' : current_posts}, context_instance=RequestContext(request)) 
+
+# Create your views here.
+@login_required
+def posts(request):
+    current_posts = Post.objects.order_by('-time')
+    return doPost(request, current_posts)
+    
 
 class PostsForm(forms.Form):
     subject = forms.CharField(max_length=100)
