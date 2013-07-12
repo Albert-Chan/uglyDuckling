@@ -1,13 +1,9 @@
 from django.contrib.auth.models import User
-from django.core.exceptions import ValidationError, ObjectDoesNotExist
+from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
 
 class Topic(models.Model):
     name = models.CharField(max_length=48, unique=True)
-    parent = models.ForeignKey('self', null=True, blank=True)
-    def clean(self):
-        if self.parent.id == self.id:
-            raise ValidationError("no self referential models")
     def __unicode__(self):
         return self.name
     def getValidLink(self):

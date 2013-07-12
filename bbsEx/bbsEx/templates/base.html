@@ -3,32 +3,16 @@
     >
 <html>
 <head>
-    <title>{% block title %}{% endblock %}</title>
+    <title>{% block title %}bbsEx{% endblock %}</title>
+    {% block styles %}
     <link rel="shortcut icon" type="image/x-icon" href="/site_static/duckling.ico" />
-    <link rel="stylesheet" type="text/css" href="/site_static/post.css" />
+    {% endblock %}
 </head>
 <body>
     <h1><a href="/p"><img src="/site_static/duckling.jpg">Ugly Duckling BBS</a></h1>
-    <div class="banner" style="text-align: right"><span><a href="/logout">logout</a></span></div>
-    <div class="container">
-    {% for post in current_posts %}
-    	<div class="feed_item">
-    		<div class="title"><a href={{ post.getValidLink }}>{{ post.subject }}</a></div>
-    		<div>
-    			<div class="author">{{ post.author }}</div>
-    			<div class="datetime">{{ post.time }}</div>
-    		</div>
-    		<br/>
-    		<div>
-    			<span class="topic_name"><a id="topic_a" href={{ post.topic.getValidLink }}>{{ post.topic.name }}</a></span>
-    		</div>
-    		<div class="content">{{ post.content }}</div>
-    	</div>
-    {% endfor %}
-    </div>
-    {% block input %}
-    
+    {% block content %}
     {% endblock %}
+    
     {% block footer %}
     <hr>
     <p>bbsEx footer</p>

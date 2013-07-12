@@ -34,7 +34,7 @@ def posts(request):
                 n = formData['topic']
                 topics = Topic.objects.filter(name=n)
                 if(len(topics) == 0):
-                    t = Topic(name=n, parent=None)
+                    t = Topic(name=n)
                     t.save()
                 else:
                     t = topics[0]    
