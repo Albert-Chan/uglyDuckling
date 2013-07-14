@@ -1,0 +1,13 @@
+    <div class="new_post">
+        {% if form.errors %}
+        <div style="color: red;">
+            Please correct the error{{ form.errors|pluralize }} below.
+        </div>
+    	{% endif %}
+    	<div>
+    	<form action="" method="post">{% csrf_token %}
+        	{{ form.as_p }}
+        	<input type="submit" value="Submit">
+    	</form>
+    	</div>
+    </div>
