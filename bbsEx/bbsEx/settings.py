@@ -119,6 +119,7 @@ TEMPLATE_DIRS = (
 
 INSTALLED_APPS = (
     'posts',
+    'ajaxtest',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',

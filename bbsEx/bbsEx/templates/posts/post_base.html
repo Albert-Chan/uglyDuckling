@@ -5,6 +5,24 @@
     <link rel="stylesheet" type="text/css" href="/site_static/post.css" />
 {% endblock %}
 
+{% block scripts %}
+<script type="text/javascript" src="/site_static/js/jquery-1.10.2.js"></script>
+<script type="text/javascript" src="/site_static/js/ajax_csrf.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+  $(".comment").click(function(obj){
+  $.post("/comment/",
+  	{
+      id: obj.id
+    },
+  	function(data,status){
+      $("#"+obj.id).html(data);
+  	});
+  });
+});
+</script> 
+{% endblock %}
+
 {% block content%}
 <div class="banner" style="text-align: right">
 	<span><a href="/logout">logout</a></span>
@@ -24,6 +42,7 @@
 			<span class="topic_name"><a id="topic_a" href={{post.topic.getValidLink }}>{{ post.topic.name }}</a></span>
 		</div>
 		<div class="content">{{ post.content }}</div>
+		<div class="comment" id={{ post.getIdString }}>comment</div>
 	</div>
 	{% endfor %}
 </div>

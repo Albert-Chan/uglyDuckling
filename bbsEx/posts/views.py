@@ -19,6 +19,13 @@ def p(request, post_id):
     current_posts = { post }
     return render_to_response('posts/post.html', {'current_posts' : current_posts}, context_instance=RequestContext(request))
 
+@login_required
+def comment(request):
+    form = PostsForm(
+            initial={'subject': 'Your subject', 'message': 'Put your comments here. Max 60000 words!'}
+        )
+    return render_to_response('posts/new_post.html', {'form': form})
+
 def doPost(request, current_posts):
     if request.method == 'POST':
         form = PostsForm(request.POST)

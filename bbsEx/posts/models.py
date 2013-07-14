@@ -36,6 +36,8 @@ class Post(models.Model):
         return self.subject
     def getValidLink(self):
         return "/p/" + str(self.id) + '/' + self.subject.replace(' ','-')
+    def getIdString(self):
+        return "\"" + str(self.id) + "\""
 
 class PostHistory(models.Model):
     post = models.ForeignKey(Post)
