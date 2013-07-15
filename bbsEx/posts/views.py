@@ -24,7 +24,7 @@ def comment(request):
     form = PostsForm(
             initial={'subject': 'Your subject', 'message': 'Put your comments here. Max 60000 words!'}
         )
-    return render_to_response('posts/new_post.html', {'form': form})
+    return render_to_response('posts/new_post.html', {'form': form}, context_instance=RequestContext(request))
 
 def doPost(request, current_posts):
     if request.method == 'POST':

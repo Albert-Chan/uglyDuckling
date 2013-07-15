@@ -1,4 +1,3 @@
-from ajaxtest.views import index, refresh, index2, gg
 from bbsEx import views
 from django.conf import settings
 from django.conf.urls import patterns, include
@@ -28,10 +27,4 @@ urlpatterns = patterns('',
     (r'^t/(.+)$', t),
     (r'^site_static/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.STATIC_PATH}),
     (r'^comment/$', comment),
-    
-    
-    (r'^ajax/$', index),
-    (r'^ajax2/$', index2),
-    (r'^refresh/$', refresh),
-    (r'^gg/$', gg),
 )
