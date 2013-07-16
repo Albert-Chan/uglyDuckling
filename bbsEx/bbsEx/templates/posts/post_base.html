@@ -12,7 +12,9 @@
 var postid = -1;
 $(document).ready(function(){
   $(".comment").click(function(obj){
-  postid = obj.target.id;
+   postid = obj.target.id;
+  if(obj.target.title=="hidden")
+  {
   $.post("/comment/",
   	{
       id: postid
@@ -20,6 +22,13 @@ $(document).ready(function(){
   	function(data,status){
       $("#"+postid).append(data);
   	});
+  	$("#"+postid).attr("title","shown");
+  	}
+  	else
+  	{
+  	 $("#"+postid).html("comment");
+  	$("#"+postid).attr("title","hidden");
+  	}
   });
 });
 </script> 
@@ -44,7 +53,7 @@ $(document).ready(function(){
 			<span class="topic_name"><a id="topic_a" href={{post.topic.getValidLink }}>{{ post.topic.name }}</a></span>
 		</div>
 		<div class="content">{{ post.content }}</div>
-		<div class="comment" id={{ post.id }}>comment</div>
+		<div class="comment" id={{ post.id }} title="hidden">comment</div>
 	</div>
 	{% endfor %}
 </div>
