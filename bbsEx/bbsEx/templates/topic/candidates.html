@@ -1,0 +1,13 @@
+<div class="results_frame" style="display: inline-block;">
+	<ul>
+    	{% for topic in candidates %}
+    	<li>
+    		<div class="pic">
+      			<img width="25" height="25" alt={{topic.name}} src={{topic.picture}}>
+    		</div>
+    		{{topic.name}}
+  		</li>
+  		{% endfor %}
+
+	</ul>
+</div>

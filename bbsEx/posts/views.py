@@ -26,7 +26,7 @@ def p(request, post_id):
     return render_to_response('posts/post.html', {'current_posts' : current_posts}, context_instance=RequestContext(request))
 
 @login_required
-def comment(request):
+def comment(request, post_id):
     form = PostsForm(
             initial={'subject': 'Your subject', 'message': 'Put your comments here. Max 60000 words!'}
         )
@@ -66,6 +66,9 @@ def posts(request):
     current_posts = Post.objects.order_by('-time')
     return doPost(request, current_posts)
     
+def select_topic(request, query_string):
+    candidates = Topic.objects.filter(name__contains=query_string)
+    return render_to_response('topic/candidates.html', {'candidates': candidates,})
 
 class PostsForm(forms.Form):
     subject = forms.CharField(max_length=100)

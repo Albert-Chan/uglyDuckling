@@ -7,6 +7,10 @@ vertical-align: baseline;
 background: transparent;
 }
 
+body{
+font-family: "Helvetica Neue",Arial,sans-serif;
+}
+
 .banner {
 	width: 100%;
 }
@@ -68,4 +72,14 @@ a {
 color: #0077cc;
 text-decoration: none;
 cursor: pointer;
+}
+
+.qtext_editor {
+background: #eaeaea;
+padding: 5px;
+}
+
+* {
+margin: 0;
+padding: 0;
 }

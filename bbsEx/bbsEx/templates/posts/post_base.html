@@ -9,27 +9,28 @@
 <script type="text/javascript" src="/site_static/js/jquery-1.10.2.js"></script>
 <script type="text/javascript" src="/site_static/js/ajax_csrf.js"></script>
 <script type="text/javascript" src="/site_static/js/posts/posts.js"></script>
+<script type="text/javascript" src="/site_static/js/posts/select_topic.js"></script>
 <script type="text/javascript">
-var postid = -1;
+var post;
+var show = false;
 $(document).ready(function(){
   $(".comment").click(function(obj){
-   postid = obj.target.id;
-  if(obj.target.title=="hidden")
-  {
-  $.post("/comment/",
-  	{
-      id: postid
-    },
+   post = $(this).parents(".feed_item");
+   var id = post.attr("id");
+   var post_container = post.find(".comment_container")
+   if(!show)
+   {
+  $.get("/comment/"+id+"/",
   	function(data,status){
-      $("#"+postid).append(data);
+      post_container.show();
+      post_container.html(data);
+      show = true;
+    }
+    else{
+    	post_container.hide();
+    	show = false;
+    } 
   	});
-  	$("#"+postid).attr("title","shown");
-  	}
-  	else
-  	{
-  	 $("#"+postid).html("comment");
-  	$("#"+postid).attr("title","hidden");
-  	}
   });
 });
 </script> 
@@ -55,9 +56,15 @@ $(document).ready(function(){
 		<br />
 		<div>
 			<span class="topic_name"><a id="topic_a" href={{post.topic.getValidLink }}>{{ post.topic.name }}</a></span>
+			<span>
+			{% include "topic/select_topic.html" %}
+			</span>
 		</div>
 		<div class="content">{{ post.content }}</div>
-		<div class="comment" title="hidden">comment</div>
+		<div class="comment">comment
+			<div class="comment_container">
+			</div>
+		</div>
 	</div>
 	{% endfor %}
 </div>
