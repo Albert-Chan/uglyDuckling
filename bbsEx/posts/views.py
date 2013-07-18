@@ -8,6 +8,12 @@ from django.template.context import RequestContext
 import datetime
 
 @login_required
+def delete(request, post_id):
+    post = Post.objects.get(id=post_id)
+    post.delete()
+    return HttpResponseRedirect('/login/')
+
+@login_required
 def t(request, topic_name):
     current_posts = Post.objects.filter(topic__name=topic_name).order_by('-time')
     return doPost(request, current_posts)

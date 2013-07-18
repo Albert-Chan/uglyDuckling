@@ -3,7 +3,7 @@ from django.conf import settings
 from django.conf.urls import patterns, include
 from django.contrib import admin
 from django.contrib.auth.views import login, logout
-from posts.views import p, posts, t, comment
+from posts.views import p, posts, t, comment, delete
 # Uncomment the next two lines to enable the admin:
 admin.autodiscover()
 
@@ -24,6 +24,7 @@ urlpatterns = patterns('',
     (r'^logout/$', logout, {'next_page': '/'}),
     (r'^p/$', posts),
     (r'^p/(\d+)/.+$', p),
+    (r'^del/(\d+)/$', delete),
     (r'^t/(.+)$', t),
     (r'^site_static/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.STATIC_PATH}),
     (r'^comment/$', comment),
