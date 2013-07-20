@@ -1,13 +1,15 @@
 <div class="results_frame" style="display: inline-block;">
-	<ul>
-    	{% for topic in candidates %}
-    	<li>
-    		<div class="pic">
-      			<img width="25" height="25" alt={{topic.name}} src={{topic.picture}}>
-    		</div>
-    		{{topic.name}}
-  		</li>
-  		{% endfor %}
-
-	</ul>
+  <ul class="results_list">
+    {% for topic in candidates %}
+    <li id={{topic.id}}>
+    <span class="pic">
+      <img width="25" height="25" alt={{topic.name}} src={{topic.picture}}>
+    </span>
+    {{topic.name}}
+  	</li>
+  	{% endfor %}
+  	<li id="new_topic">
+  	Create topic
+  	</li>
+</ul>
 </div>

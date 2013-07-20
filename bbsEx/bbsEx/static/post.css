@@ -79,6 +79,18 @@ background: #eaeaea;
 padding: 5px;
 }
 
+.results_frame {
+z-index: 99; 
+position: absolute; 
+border: 1px solid #666;
+width: 300px;
+background-color: white;
+}
+
+.selected_li {
+background-color: #dfeaf4;
+}
+
 * {
 margin: 0;
 padding: 0;

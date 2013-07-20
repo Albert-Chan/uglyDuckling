@@ -1,35 +1,48 @@
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="UTF-8">
-<title>bbsEx</title>
-<link rel="shortcut icon" type="image/x-icon" href="http://127.0.0.1:8000/site_static/logo.ico" />
-</head>
-<body>
-<!-- SignUp -->
-<div style="display:inline-table; border-right: 1px dotted #d7ad7b;" >
-  <h1>Sign Up</h1>
-  <form action="register/" method="post">{% csrf_token %}
-      {{ signUpForm.as_p }}
-      <input type="submit" value="Create the account">
-  </form>
-</div>
-<!-- Login -->
-<div style="display:inline-table;">
-  <h1>Login</h1>
-  {% if form.errors %}
-    <p class="error">Bad username or password</p>
-  {% endif %}
+  <head>
+    <meta charset="UTF-8">
+    <title>
+      bbsEx
+    </title>
+    <link rel="shortcut icon" type="image/x-icon" href="http://127.0.0.1:8000/site_static/logo.ico" />
+  </head>
+  <body>
+    <!-- SignUp -->
+    <div style="display:inline-table; border-right: 1px dotted #d7ad7b;" >
+      <h1>
+        Sign Up
+      </h1>
+      <form action="register/" method="post">
+        {% csrf_token %} {{ signUpForm.as_p }}
+        <input type="submit" value="Create the account">
+      </form>
+    </div>
+    <!-- Login -->
+    <div style="display:inline-table;">
+      <h1>
+        Login
+      </h1>
+      {% if form.errors %}
+      <p class="error">
+        Bad username or password
+      </p>
 
-  <form action="login/" method="post">{% csrf_token %}
-    <label for="username">User name:</label>
-    <input type="text" name="username" value="" id="username">
-    <label for="password">Password:</label>
-    <input type="password" name="password" value="" id="password">
+      {% endif %}
+      <form action="login/" method="post">
+        {% csrf_token %}
+        <label for="username">
+          User name:
+        </label>
+        <input type="text" name="username" value="" id="username">
+        <label for="password">
+          Password:
+        </label>
+        <input type="password" name="password" value="" id="password">
 
-    <input type="submit" value="login" />
-    <input type="hidden" name="next" value="/p" />
-  </form>
-</div>
-</body>
+        <input type="submit" value="login" />
+        <input type="hidden" name="next" value="/p" />
+      </form>
+    </div>
+  </body>
 </html>

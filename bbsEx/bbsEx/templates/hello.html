@@ -1,9 +1,13 @@
 <html>
-<body>
-{% if user.is_authenticated %}
-  <p>Hello, {{ user.username }}.</p>
-{% else %}
-  <p>Welcome guest.</p>
-{% endif %}
-</body>
+  <body>
+    {% if user.is_authenticated %}
+    <p>
+      Hello, {{ user.username }}.
+    </p>
+    {% else %}
+    <p>
+      Welcome guest.
+    </p>
+    {% endif %}
+  </body>
 </html>

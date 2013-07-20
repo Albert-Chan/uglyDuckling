@@ -1,73 +1,66 @@
-{% extends "base.html" %}
 
-{% block styles %}
-	{{ block.super }}
-    <link rel="stylesheet" type="text/css" href="/site_static/post.css" />
-{% endblock %}
+{% extends "base.html" %} {% block styles %} {{ block.super }}
+<link rel="stylesheet" type="text/css" href="/site_static/post.css" />
 
-{% block scripts %}
-<script type="text/javascript" src="/site_static/js/jquery-1.10.2.js"></script>
-<script type="text/javascript" src="/site_static/js/ajax_csrf.js"></script>
-<script type="text/javascript" src="/site_static/js/posts/posts.js"></script>
-<script type="text/javascript" src="/site_static/js/posts/select_topic.js"></script>
-<script type="text/javascript">
-var post;
-var show = false;
-$(document).ready(function(){
-  $(".comment").click(function(obj){
-   post = $(this).parents(".feed_item");
-   var id = post.attr("id");
-   var post_container = post.find(".comment_container")
-   if(!show)
-   {
-  $.get("/comment/"+id+"/",
-  	function(data,status){
-      post_container.show();
-      post_container.html(data);
-      show = true;
-    }
-    else{
-    	post_container.hide();
-    	show = false;
-    } 
-  	});
-  });
-});
-</script> 
-{% endblock %}
+{% endblock %} {% block scripts %}
+<script type="text/javascript" src="/site_static/js/jquery-1.10.2.js">
+</script>
+<script type="text/javascript" src="/site_static/js/ajax_csrf.js">
+</script>
+<script type="text/javascript" src="/site_static/js/posts/posts.js">
+</script>
+<script type="text/javascript" src="/site_static/js/posts/select_topic.js">
+</script>
+<script type="text/javascript" src="/site_static/js/posts/comment.js">
+</script>
 
-{% block content%}
+{% endblock %} {% block content%}
 <div class="banner" style="text-align: right">
-	<span><a href="/logout">logout</a></span>
+  <span>
+    <a href="/logout">
+      logout
+    </a>
+  </span>
 </div>
 <div class="container">
-	{% for post in current_posts %}
-	<div id={{ post.id }} class="feed_item">
-		<div>
-			<div class="title">
-				<a href={{post.getValidLink }}>{{ post.subject }}</a>
-			</div>
-			<input type="button" class="delete_action" value="Delete!"/>
-		</div>
-		<div>
-			<div class="author">{{ post.author }}</div>
-			<div class="datetime">{{ post.time }}</div>
-		</div>
-		<br />
-		<div>
-			<span class="topic_name"><a id="topic_a" href={{post.topic.getValidLink }}>{{ post.topic.name }}</a></span>
-			<span>
-			{% include "topic/select_topic.html" %}
-			</span>
-		</div>
-		<div class="content">{{ post.content }}</div>
-		<div class="comment">comment
-			<div class="comment_container">
-			</div>
-		</div>
-	</div>
-	{% endfor %}
+  {% for post in current_posts %}
+  <div id={{ post.id }} class="feed_item">
+    <div>
+      <div class="title">
+        <a href={{post.getValidLink }}>
+          {{ post.subject }}
+        </a>
+      </div>
+      <input type="button" class="delete_action" value="Delete!"/>
+    </div>
+    <div>
+      <div class="author">
+        {{ post.author }}
+      </div>
+      <div class="datetime">
+        {{ post.time }}
+      </div>
+    </div>
+    <br />
+    <div>
+      <span class="topic_name">
+        <a id="topic_a" href={{post.topic.getValidLink }}>
+          {{ post.topic.name }}
+        </a>
+      </span>
+      <span>
+        {% include "topic/select_topic.html" %}
+      </span>
+    </div>
+    <div class="content">
+      {{ post.content }}
+    </div>
+    <div class="comment">
+      comment
+      <div class="comment_container">
+      </div>
+    </div>
+  </div>
+  {% endfor %}
 </div>
-{% block input %}
-{% endblock %}
-{% endblock %}
+{% block input %} {% endblock %} {% endblock %}

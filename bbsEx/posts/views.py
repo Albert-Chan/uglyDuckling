@@ -66,9 +66,17 @@ def posts(request):
     current_posts = Post.objects.order_by('-time')
     return doPost(request, current_posts)
     
-def select_topic(request, query_string):
+def get_candidates(request, query_string):
     candidates = Topic.objects.filter(name__contains=query_string)
     return render_to_response('topic/candidates.html', {'candidates': candidates,})
+
+@login_required
+def select_topic(request, post_id, topic_id):
+    post = Post.objects.get(id=post_id)
+    topic = Topic.objects.get(id=topic_id)
+    post.topic = topic
+    post.save()
+    return HttpResponseRedirect('/login/')
 
 class PostsForm(forms.Form):
     subject = forms.CharField(max_length=100)
