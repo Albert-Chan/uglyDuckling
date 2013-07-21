@@ -1,5 +1,6 @@
 var post;
 var li;
+var isMouseLeave = true;
 $(document).ready(function() {
     $(".question_box").keyup(function() {
         post = $(this).parents(".feed_item");
@@ -50,14 +51,24 @@ $(document).ready(function() {
         }
     });
 
-   // $(".question_box").blur(function() {
-//        post = $(this).parents(".feed_item");
-//        post.find(".results_shell").hide();
-//    });
+    $(".question_box").blur(function() {
+        if (isMouseLeave) {
+            post = $(this).parents(".feed_item");
+            post.find(".results_shell").hide();
+        }
+    });
 
     $(".question_box").focus(function() {
         post = $(this).parents(".feed_item");
         post.find(".results_shell").show();
+    });
+
+    $(document).on("mouseenter", ".results_list", function() {
+        isMouseLeave = false;
+    });
+
+    $(document).on("mouseleave", ".results_list", function() {
+        isMouseLeave = true;
     });
 
     $(document).on("mouseover", "li", function() {
@@ -69,12 +80,13 @@ $(document).ready(function() {
     $(document).on("click", "li", function() {
         var topic_id = li.attr("id");
         var post_id = post.attr("id");
-        var topic_a = $(this).parents(".topics").find("#topic_a");
+        var topic_a = li.parents(".topics").find("#topic_a");
         if (topic_id == "new_topic") {
-            topic_a.text($(this).text());
+            var input = li.parents(".qtext_editor").find(".question_box").val();
+            topic_a.text(input);
             $.post("/add_topic/", {
                 post_id: post_id,
-                topic_name: $(this).text()
+                topic_name: input
             }, function(data, status) {});
         } else {
             topic_a.text(li.text());
