@@ -40,10 +40,6 @@ color: white;
 background-color: gray;
 }
 
-#topic_a {
-color: white;
-}
-
 .author {
 color:gray;
 float: left;
@@ -85,6 +81,10 @@ position: absolute;
 border: 1px solid #666;
 width: 300px;
 background-color: white;
+}
+
+.result_item {
+list-style-type: none;
 }
 
 .selected_li {

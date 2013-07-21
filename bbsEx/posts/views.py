@@ -78,6 +78,18 @@ def select_topic(request, post_id, topic_id):
     post.save()
     return HttpResponseRedirect('/login/')
 
+@login_required
+def add_topic(request):
+    if request.method == 'POST':
+        post_id = request.POST['post_id']
+        topic_name = request.POST['topic_name']
+        topic = Topic(name=topic_name)
+        topic.save()
+        post = Post.objects.get(id=post_id)
+        post.topic = topic
+        post.save()
+    return HttpResponseRedirect('/login/', context_instance=RequestContext(request))
+
 class PostsForm(forms.Form):
     subject = forms.CharField(max_length=100)
     topic = forms.CharField(max_length=48, required=False)
