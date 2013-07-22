@@ -58,7 +58,8 @@ def doPost(request, current_posts):
         form = PostsForm(
             initial={'subject': 'Your subject', 'message': 'Put your comments here. Max 60000 words!'}
         )
-    return render_to_response('posts/posts.html', {'form': form, 'current_posts' : current_posts, 'current_user' : request.user }, context_instance=RequestContext(request)) 
+    #the permission part is ugly because django template doesn't support direct python function calls in template. Will migrate to jinja2 in the future to solve this problem.
+    return render_to_response('posts/posts.html', {'form': form, 'current_posts' : current_posts, 'current_user' : request.user, 'can_delete' : request.user.has_perm('posts.post') }, context_instance=RequestContext(request)) 
 
 # Create your views here.
 @login_required
