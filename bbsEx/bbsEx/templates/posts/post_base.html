@@ -31,7 +31,9 @@
           {{ post.subject }}
         </a>
       </div>
+      {% if post.author == current_user %}
       <input type="button" class="delete_action" value="Delete!"/>
+      {% endif %}
     </div>
     <div>
       <div class="author">

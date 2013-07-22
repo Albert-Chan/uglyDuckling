@@ -58,7 +58,7 @@ def doPost(request, current_posts):
         form = PostsForm(
             initial={'subject': 'Your subject', 'message': 'Put your comments here. Max 60000 words!'}
         )
-    return render_to_response('posts/posts.html', {'form': form, 'current_posts' : current_posts}, context_instance=RequestContext(request)) 
+    return render_to_response('posts/posts.html', {'form': form, 'current_posts' : current_posts, 'current_user' : request.user }, context_instance=RequestContext(request)) 
 
 # Create your views here.
 @login_required
