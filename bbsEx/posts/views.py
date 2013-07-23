@@ -2,7 +2,7 @@ from posts.models import Post
 from posts.models import Topic
 from django import forms
 from django.contrib.auth.decorators import login_required
-from django.http.response import HttpResponseRedirect
+from django.http.response import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render_to_response
 from django.template.context import RequestContext
 import datetime
@@ -11,7 +11,7 @@ import datetime
 def delete(request, post_id):
     post = Post.objects.get(id=post_id)
     post.delete()
-    return HttpResponseRedirect('/login/')
+    return HttpResponse()
 
 @login_required
 def t(request, topic_name):
@@ -63,7 +63,7 @@ def doPost(request, current_posts):
 # Create your views here.
 @login_required
 def posts(request):
-    current_posts = Post.objects.order_by('-time')
+    current_posts = Post.objects.filter(parent=None).order_by('-time')
     return doPost(request, current_posts)
     
 def get_candidates(request, query_string):

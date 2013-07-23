@@ -25,6 +25,7 @@ class Post(models.Model):
     author = models.ForeignKey(User)
     time = models.DateTimeField()
     topic = models.ForeignKey(Topic, default=getNoneTopic)
+    parent = models.ForeignKey('self', null=True)
     read_count = models.BigIntegerField(default=0)
     followed_count = models.IntegerField(default=0)
     #public = 4
