@@ -51,9 +51,11 @@
           {{ post.topic.name }}
         </a>
       </span>
+      {% if post.author == user or perms.posts.post %}
       <span>
         {% include "topic/select_topic.html" %}
       </span>
+      {% endif %}
     </div>
     <div class="content">
       {{ post.content }}
