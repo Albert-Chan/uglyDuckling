@@ -28,16 +28,21 @@ def p(request, post_id):
         form = ReplyForm(request.POST)
         if form.is_valid():
             formData = form.cleaned_data
+            reply_id = formData['reply_id']
+            replyTo = None
+            if(len(reply_id) != 0):
+                replyTo = Reply.objects.get(id=int(reply_id))
             r = Reply(
                 author=request.user,
-                content=formData['message'],
+                content=formData['content'],
                 time=datetime.datetime.now(),
                 post = post,
+                replyTo = replyTo,
             )
             r.save()
             return HttpResponseRedirect(request.path)
     else:
-        form = ReplyForm(initial = {'message' : 'message' })
+        form = ReplyForm()
     return render_to_response('posts/post.html', {'current_posts' : current_posts, 'reply_form' : form, 'comments' : comments}, context_instance=RequestContext(request))
 
 @login_required
@@ -113,4 +118,5 @@ class PostsForm(forms.Form):
     message = forms.CharField(widget=forms.Textarea)
     
 class ReplyForm(forms.Form):
-    message = forms.CharField(widget=forms.Textarea)
+    content = forms.CharField(widget=forms.Textarea)
+    reply_id = forms.CharField(widget=forms.HiddenInput(), required=False)

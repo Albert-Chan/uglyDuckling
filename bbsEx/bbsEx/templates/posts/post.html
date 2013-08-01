@@ -1,17 +1,28 @@
 {% extends "posts/post_base.html" %}
-
-{% block title %}bbsEx{% endblock %}
-
-{% block comment %}
-<br><hr><br>
+{% block title %}bbsEx{% endblock%}
+{% block scripts %} {{ block.super }}
+<script type="text/javascript" src="/site_static/js/posts/reply.js">
+	
+</script>
+{% endblock %} {% block comment %}
+<br>
+<hr>
+<br>
 {% include "posts/new_reply.html" %}
-<br><br><hr>
+<br>
+<br>
+<hr>
 <div>Replys:</div>
-<div>
 {% for comment in comments %}
-<div>{{ comment.content }}</div>
-<div class="datetime">{{ comment.time }}</div>
-<div class="author">{{ comment.author }}</div><br><br>
-{% endfor %}
+<div id="{{comment.id}}" class="reply">
+	<div>{{ comment.content }}</div>
+	<div class="datetime">{{ comment.time }}</div>
+	<div class="author">{{ comment.author }}</div>
+	<br>
+	<div class="replyForm">
+		<a class="show_reply">Reply</a> {% include "posts/new_reply.html" %}
+	</div>
+	<br> 
 </div>
+{% endfor %}
 {% endblock %}
