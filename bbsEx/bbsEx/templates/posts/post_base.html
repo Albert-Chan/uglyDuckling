@@ -11,8 +11,6 @@
 </script>
 <script type="text/javascript" src="/site_static/js/posts/select_topic.js">
 </script>
-<script type="text/javascript" src="/site_static/js/posts/comment.js">
-</script>
 
 {% endblock %} {% block content%}
 <div class="banner" style="text-align: right">
@@ -62,7 +60,7 @@
     </div>
     {% block comment %}
     <div class="comment">
-      comment
+      <a id="topic_a" href={{post.getValidLink }}>comments [{{post.reply_count}}]</a>
       <div class="comment_container">
       </div>
     </div>

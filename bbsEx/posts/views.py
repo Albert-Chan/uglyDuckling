@@ -79,6 +79,8 @@ def doPost(request, current_posts):
 @login_required
 def posts(request):
     current_posts = Post.objects.order_by('-time')
+    for post in current_posts:
+        post.reply_count = len(Reply.objects.filter(post=post))
     return doPost(request, current_posts)
     
 def get_candidates(request, query_string):

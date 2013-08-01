@@ -3,6 +3,8 @@
 {% block title %}bbsEx{% endblock %}
 
 {% block comment %}
+<br><hr><br>
+{% include "posts/new_reply.html" %}
 <br><br><hr>
 <div>Replys:</div>
 <div>
@@ -12,8 +14,4 @@
 <div class="author">{{ comment.author }}</div><br><br>
 {% endfor %}
 </div>
-{% endblock %}
-
-{% block input %}
-	{% include "posts/new_reply.html" %}
 {% endblock %}

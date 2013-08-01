@@ -32,6 +32,7 @@ class Post(models.Model):
     #private = 1
     read_acl = models.IntegerField(default=1)
     write_acl = models.BooleanField(default=True)
+    comment_count = 0
     def __unicode__(self):
         return self.subject
     def getValidLink(self):
