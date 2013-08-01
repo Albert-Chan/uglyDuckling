@@ -1,4 +1,4 @@
-from posts.models import Post
+from posts.models import Post, Reply
 from posts.models import Topic
 from django import forms
 from django.contrib.auth.decorators import login_required
@@ -23,7 +23,22 @@ def p(request, post_id):
     post_id = int(post_id)
     post = Post.objects.get(id=post_id)
     current_posts = { post }
-    return render_to_response('posts/post.html', {'current_posts' : current_posts}, context_instance=RequestContext(request))
+    comments = Reply.objects.filter(post=post)
+    if request.method == 'POST':
+        form = ReplyForm(request.POST)
+        if form.is_valid():
+            formData = form.cleaned_data
+            r = Reply(
+                author=request.user,
+                content=formData['message'],
+                time=datetime.datetime.now(),
+                post = post,
+            )
+            r.save()
+            return HttpResponseRedirect(request.path)
+    else:
+        form = ReplyForm(initial = {'message' : 'message' })
+    return render_to_response('posts/post.html', {'current_posts' : current_posts, 'reply_form' : form, 'comments' : comments}, context_instance=RequestContext(request))
 
 @login_required
 def comment(request, post_id):
@@ -63,7 +78,7 @@ def doPost(request, current_posts):
 # Create your views here.
 @login_required
 def posts(request):
-    current_posts = Post.objects.filter(parent=None).order_by('-time')
+    current_posts = Post.objects.order_by('-time')
     return doPost(request, current_posts)
     
 def get_candidates(request, query_string):
@@ -93,4 +108,7 @@ def add_topic(request):
 class PostsForm(forms.Form):
     subject = forms.CharField(max_length=100)
     topic = forms.CharField(max_length=48, required=False)
+    message = forms.CharField(widget=forms.Textarea)
+    
+class ReplyForm(forms.Form):
     message = forms.CharField(widget=forms.Textarea)

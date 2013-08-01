@@ -56,6 +56,12 @@ width: 980px;
 overflow: hidden;
 }
 
+.new_reply {
+margin: 0 auto;
+width: 980px;
+overflow: hidden;
+}
+
 a:visited {
 color: #4a6b82;
 }

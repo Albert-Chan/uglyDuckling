@@ -1,3 +1,19 @@
 {% extends "posts/post_base.html" %}
 
 {% block title %}bbsEx{% endblock %}
+
+{% block comment %}
+<br><br><hr>
+<div>Replys:</div>
+<div>
+{% for comment in comments %}
+<div>{{ comment.content }}</div>
+<div class="datetime">{{ comment.time }}</div>
+<div class="author">{{ comment.author }}</div>
+{% endfor %}
+</div>
+{% endblock %}
+
+{% block input %}
+	{% include "posts/new_reply.html" %}
+{% endblock %}

@@ -60,11 +60,13 @@
     <div class="content">
       {{ post.content }}
     </div>
+    {% block comment %}
     <div class="comment">
       comment
       <div class="comment_container">
       </div>
     </div>
+    {% endblock %}
   </div>
   {% endfor %}
 </div>
