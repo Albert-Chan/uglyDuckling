@@ -83,3 +83,6 @@ class Reply(models.Model):
     time = models.DateTimeField()
     post = models.ForeignKey(Post)
     replyTo = models.ForeignKey('self', null=True)
+    indent = 0
+    def __unicode__(self):
+        return self.content

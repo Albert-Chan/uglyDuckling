@@ -23,7 +23,8 @@ def p(request, post_id):
     post_id = int(post_id)
     post = Post.objects.get(id=post_id)
     current_posts = { post }
-    comments = Reply.objects.filter(post=post)
+    comments = Reply.objects.filter(post=post).order_by('time')
+    comments = process(comments)
     if request.method == 'POST':
         form = ReplyForm(request.POST)
         if form.is_valid():
@@ -44,6 +45,47 @@ def p(request, post_id):
     else:
         form = ReplyForm()
     return render_to_response('posts/post.html', {'current_posts' : current_posts, 'reply_form' : form, 'comments' : comments}, context_instance=RequestContext(request))
+
+def process(comments):
+    
+#     copy = list(comments)
+#     i = 0
+#     while i < len(copy):
+#         comment = copy[i]
+#         print comment.id
+#         pos = j = i+1
+#         while j < len(copy):
+#             child = copy[j]
+#             print child.id
+#             if(child.replyTo != None):
+#                 print child.replyTo.id
+#                 if(child.replyTo.id == comment.id):
+#                     del copy[j]
+#                     copy.insert(pos, child)
+#                     child.indent = comment.indent + 50
+#                     ++pos
+#             j = j+1
+#         i = i+1
+    replys = list(comments)
+    retVal = []
+    processed = []
+    for reply in replys:
+        if not reply in processed:
+            for c in getChildReply(replys, processed, reply):
+                retVal.append(c)
+    return retVal
+
+def getChildReply(replys, processed, reply):
+    if reply in processed:
+        return []
+    retVal = [reply]
+    for r in replys:
+        if( (not r in processed) and r.replyTo != None and r.replyTo.id == reply.id):
+            for c in getChildReply(replys, processed, r):
+                c.indent = c.indent + 50
+                retVal.append(c)
+    processed.append(reply)
+    return retVal
 
 @login_required
 def comment(request, post_id):

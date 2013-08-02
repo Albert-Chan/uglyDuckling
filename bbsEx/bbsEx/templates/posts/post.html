@@ -14,7 +14,8 @@
 <hr>
 <div>Replys:</div>
 {% for comment in comments %}
-<div id="{{comment.id}}" class="reply">
+
+<div id="{{comment.id}}" class="reply" style="margin-left:{{comment.indent}}px;">
 	<div>{{ comment.content }}</div>
 	<div class="datetime">{{ comment.time }}</div>
 	<div class="author">{{ comment.author }}</div>
