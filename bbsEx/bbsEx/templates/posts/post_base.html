@@ -58,7 +58,9 @@
       {% endif %}
     </div>
     <div class="content">
+    {% autoescape off %}
       {{ post.content }}
+    {% endautoescape %}
     </div>
     {% block comment %}
     <div class="comment">
