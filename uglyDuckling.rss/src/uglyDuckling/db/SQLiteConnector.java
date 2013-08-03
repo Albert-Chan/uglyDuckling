@@ -8,14 +8,15 @@ import java.sql.Statement;
 
 public class SQLiteConnector {
 	public static void main(String[] args) throws SQLException {
-		SQLiteConnector conn = null;
+		SQLiteConnector connector = null;
 		try {
-			conn = new SQLiteConnector(
-					"D:\\git\\uglyDuckling\\bbsEx\\bbsEx\\sqlite.db");
-			conn.query("SELECT name FROM posts_Topic",
-					conn.new ResultSetHandler());
+			connector = new SQLiteConnector(
+					"E:\\workspace\\uglyDuckling\\bbsEx\\bbsEx\\sqlite.db");
+			connector.query("SELECT name FROM posts_Topic",
+					connector.new ResultSetHandler());
 		} finally {
-			conn.close();
+			if (connector != null)
+				connector.close();
 		}
 	}
 
@@ -57,7 +58,7 @@ public class SQLiteConnector {
 	public void query(String sql, ResultSetHandler handler) throws SQLException {
 		ResultSet rs = null;
 		try {
-			stat.executeQuery(sql);
+			rs = stat.executeQuery(sql);
 			handler.handle(rs);
 		} finally {
 			if (rs != null) {
