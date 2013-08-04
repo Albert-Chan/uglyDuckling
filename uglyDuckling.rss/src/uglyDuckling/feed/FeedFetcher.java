@@ -2,6 +2,7 @@ package uglyDuckling.feed;
 
 import java.net.URL;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -19,6 +20,9 @@ import com.sun.syndication.io.XmlReader;
 public class FeedFetcher {
 
 	private SQLiteConnector connector = null;
+	
+	private static final SimpleDateFormat DATE_FORMAT_YMDHMS = new SimpleDateFormat(
+			"yyyy-MM-dd HH:mm:SS");
 
 	public static void main(String[] args) throws Exception {
 		URL u1 = new URL("http://www.guokr.com/rss/");
@@ -88,7 +92,7 @@ public class FeedFetcher {
 				+1 +","
 //				+ "'" + entry.getAuthor()
 //				+ "',"
-				+ "'" + entry.getUpdatedDate()
+				+ "'" + DATE_FORMAT_YMDHMS.format(entry.getUpdatedDate())
 				+ "'," +1 +","+0 +","+1 +","+1 +","+0 
 				+ ")";
 
