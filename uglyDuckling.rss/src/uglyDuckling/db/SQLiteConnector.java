@@ -11,7 +11,7 @@ public class SQLiteConnector {
 		SQLiteConnector connector = null;
 		try {
 			connector = new SQLiteConnector(
-					"E:\\workspace\\uglyDuckling\\bbsEx\\bbsEx\\sqlite.db");
+					"D:\\python\\git\\uglyDuckling\\bbsEx\\bbsEx\\sqlite.db");
 			connector.query("SELECT name FROM posts_Topic",
 					connector.new ResultSetHandler());
 		} finally {
@@ -32,9 +32,16 @@ public class SQLiteConnector {
 		}
 	}
 
+	public static String CONNECTION_STRING="D:\\python\\git\\uglyDuckling\\bbsEx\\bbsEx\\sqlite.db";
+	
 	public SQLiteConnector(String db) throws SQLException {
 		conn = DriverManager.getConnection("jdbc:sqlite:" + db);
 		stat = conn.createStatement();
+	}
+	
+	public SQLiteConnector()throws SQLException
+	{
+		this(SQLiteConnector.CONNECTION_STRING);
 	}
 
 	/**
@@ -49,7 +56,26 @@ public class SQLiteConnector {
 		// stat.executeUpdate( "insert into tbl1 values('aaa',8888);" );
 		stat.executeUpdate(sql);
 	}
+	
+	public void startTransaction() throws SQLException
+	{
+		conn.setAutoCommit(false);
+	}
 
+	public void endTransaction() throws SQLException
+	{
+		conn.setAutoCommit(true);
+	}
+	
+	public void commitTrasaction() throws SQLException
+	{
+		conn.commit();
+	}
+	
+	public void rollBack() throws SQLException
+	{
+		conn.rollback();
+	}
 	/**
 	 * Select ...
 	 * 
