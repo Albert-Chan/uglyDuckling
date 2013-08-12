@@ -2,23 +2,12 @@ package uglyDuckling.db;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
 public class SQLiteConnector {
-	public static void main(String[] args) throws SQLException {
-		SQLiteConnector connector = null;
-		try {
-			connector = new SQLiteConnector(
-					"D:\\python\\git\\uglyDuckling\\bbsEx\\bbsEx\\sqlite.db");
-			connector.query("SELECT name FROM posts_Topic",
-					connector.new ResultSetHandler());
-		} finally {
-			if (connector != null)
-				connector.close();
-		}
-	}
 
 	private Statement stat = null;
 	private Connection conn = null;
@@ -32,16 +21,23 @@ public class SQLiteConnector {
 		}
 	}
 
-	public static String CONNECTION_STRING="D:\\python\\git\\uglyDuckling\\bbsEx\\bbsEx\\sqlite.db";
-	
 	public SQLiteConnector(String db) throws SQLException {
 		conn = DriverManager.getConnection("jdbc:sqlite:" + db);
 		stat = conn.createStatement();
 	}
-	
-	public SQLiteConnector()throws SQLException
-	{
-		this(SQLiteConnector.CONNECTION_STRING);
+
+	public void startTransaction() throws SQLException {
+		conn.setAutoCommit(false);
+	}
+
+	public void commitTransaction() throws SQLException {
+		conn.commit();
+		conn.setAutoCommit(true);
+	}
+
+	public void rollBack() throws SQLException {
+		conn.rollback();
+		conn.setAutoCommit(true);
 	}
 
 	/**
@@ -56,26 +52,15 @@ public class SQLiteConnector {
 		// stat.executeUpdate( "insert into tbl1 values('aaa',8888);" );
 		stat.executeUpdate(sql);
 	}
-	
-	public void startTransaction() throws SQLException
-	{
-		conn.setAutoCommit(false);
+
+	public PreparedStatement prepareStatement(String sql) throws SQLException {
+		return conn.prepareStatement(sql);
 	}
 
-	public void endTransaction() throws SQLException
-	{
-		conn.setAutoCommit(true);
+	public void update(PreparedStatement statement) throws SQLException {
+		statement.executeUpdate();
 	}
-	
-	public void commitTrasaction() throws SQLException
-	{
-		conn.commit();
-	}
-	
-	public void rollBack() throws SQLException
-	{
-		conn.rollback();
-	}
+
 	/**
 	 * Select ...
 	 * 
@@ -106,4 +91,15 @@ public class SQLiteConnector {
 		}
 	}
 
+	public static void main(String[] args) throws SQLException {
+		SQLiteConnector connector = null;
+		try {
+			connector = new SQLiteConnector(args[0]);
+			connector.query("SELECT name FROM posts_Topic",
+					connector.new ResultSetHandler());
+		} finally {
+			if (connector != null)
+				connector.close();
+		}
+	}
 }
