@@ -47,7 +47,6 @@ def p(request, post_id):
     return render_to_response('posts/post.html', {'current_posts' : current_posts, 'reply_form' : form, 'comments' : comments}, context_instance=RequestContext(request))
 
 def process(comments):
-    
 #     copy = list(comments)
 #     i = 0
 #     while i < len(copy):
@@ -155,9 +154,9 @@ def add_topic(request):
     return HttpResponseRedirect('/login/', context_instance=RequestContext(request))
 
 class PostsForm(forms.Form):
-    subject = forms.CharField(max_length=100)
+    subject = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'size':100}))
     topic = forms.CharField(max_length=48, required=False)
-    message = forms.CharField(widget=forms.Textarea)
+    message = forms.CharField(widget=forms.Textarea(attrs={'rows': 10, 'cols':100}))
     
 class ReplyForm(forms.Form):
     content = forms.CharField(widget=forms.Textarea)
