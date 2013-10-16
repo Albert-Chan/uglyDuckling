@@ -37,6 +37,10 @@ class Post(models.Model):
         return self.subject
     def getValidLink(self):
         return "/p/" + str(self.id) + '/' + self.subject.replace(' ','-')
+    def toJSon(self):
+        return {"subject":self.subject.__str__(), "keywords":self.keywords.__str__(),
+                 "content":self.content.__str__(), "author":self.author.__str__(), "time":self.time.__str__(), "topic":self.topic.__str__()}
+    
 
 class PostHistory(models.Model):
     post = models.ForeignKey(Post)

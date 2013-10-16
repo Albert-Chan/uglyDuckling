@@ -8,3 +8,12 @@ $(function() {
         });
     });
 });
+
+$(function() {
+    $(".test_json").click(function() {
+    	$.getJSON("/jsonp/", function(json){
+    		for(i = 0; i < json.length; i++)
+    			alert(json[i].content);
+    	});
+    });
+});

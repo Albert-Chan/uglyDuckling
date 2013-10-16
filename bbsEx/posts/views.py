@@ -47,6 +47,7 @@ def p(request, post_id):
     return render_to_response('posts/post.html', {'current_posts' : current_posts, 'reply_form' : form, 'comments' : comments}, context_instance=RequestContext(request))
 
 def process(comments):
+    
 #     copy = list(comments)
 #     i = 0
 #     while i < len(copy):
@@ -128,6 +129,16 @@ def posts(request):
     for post in current_posts:
         post.reply_count = len(Reply.objects.filter(post=post))
     return doPost(request, current_posts)
+
+import json
+
+def posts_json(request):
+    current_posts = Post.objects.order_by('-time')
+    retVal = []
+    for post in current_posts:
+        retVal.append(post.toJSon())
+    return HttpResponse(json.dumps(retVal), content_type="application/json")
+    return 
     
 def get_candidates(request, query_string):
     candidates = Topic.objects.filter(name__contains=query_string)
@@ -154,9 +165,9 @@ def add_topic(request):
     return HttpResponseRedirect('/login/', context_instance=RequestContext(request))
 
 class PostsForm(forms.Form):
-    subject = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'size':100}))
+    subject = forms.CharField(max_length=100)
     topic = forms.CharField(max_length=48, required=False)
-    message = forms.CharField(widget=forms.Textarea(attrs={'rows': 10, 'cols':100}))
+    message = forms.CharField(widget=forms.Textarea)
     
 class ReplyForm(forms.Form):
     content = forms.CharField(widget=forms.Textarea)

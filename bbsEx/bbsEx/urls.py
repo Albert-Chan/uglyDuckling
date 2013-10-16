@@ -4,7 +4,7 @@ from django.conf.urls import patterns, include
 from django.contrib import admin
 from django.contrib.auth.views import login, logout
 from posts.views import p, posts, t, comment, delete, select_topic, \
-    get_candidates, add_topic
+    get_candidates, add_topic, posts_json
 # Uncomment the next two lines to enable the admin:
 admin.autodiscover()
 
@@ -32,4 +32,5 @@ urlpatterns = patterns('',
     (r'^q_topic/(.+)$', get_candidates),
     (r'^add_topic/$', add_topic),
     (r'^select_topic/(\d+)/(\d+)$', select_topic),
+    (r'^jsonp/$', posts_json),
 )
