@@ -18,13 +18,12 @@ public class FeedsCache {
 	private HashMap<String, FeedCache> cacheMap = new HashMap<String, FeedCache>();
 	private FeedCache currentFeed;
 
-	private static final String CONNECTION_STRING = "E:\\workspace\\uglyDuckling\\bbsEx\\bbsEx\\sqlite.db";
-
 	private SQLiteConnector connector = null;
 
 	public FeedsCache(List<String> feedSources) throws SQLException {
 		initialize(feedSources);
-		connector = new SQLiteConnector(CONNECTION_STRING);
+		String dbConnStr = Config.get(Config.DB_CONNECTION);
+		connector = new SQLiteConnector(dbConnStr);
 	}
 
 	private void initialize(List<String> feedSources) {
@@ -120,7 +119,7 @@ public class FeedsCache {
 		addFeedMessage.setString(1, entry.getTitle());
 		addFeedMessage.setString(2, entry.getTitle());
 		addFeedMessage.setString(3, contents.toString());
-		//addFeedMessage.setString(4, entry.getAuthor());
+		// addFeedMessage.setString(4, entry.getAuthor());
 		addFeedMessage.setTimestamp(4, new Timestamp(entry.getUpdatedDate()
 				.getTime()));
 		connector.update(addFeedMessage);
