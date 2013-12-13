@@ -1,4 +1,113 @@
+/*  * {
+	border: 1px solid #eaeaea;
+}  */
+body,textarea {
+	font-family: 'Lucida Grande', Helvetica, Arial, Verdana, sans-serif;
+}
+
+.todo-pane {
+	margin: 0 auto;
+	width: 980px;
+	overflow: hidden;
+	padding: 10px;
+}
+
+.todo-items {
+	list-style: none;
+}
+
+.todo-items li {
+	margin: 5px;
+	clear: both;
+	padding: 5px;
+	border: 1px solid #ddd;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	background-color: #f1f1f1;
+}
+
 .done-true {
-  text-decoration: line-through;
-  color: grey;
+	text-decoration: line-through;
+	color: grey;
+}
+
+.todo-item-menu {
+	margin: 5px;
+	padding: 1px;
+}
+
+.todo-item-menu-button {
+	margin: 2px;
+	padding: 1px;
+	background-color: #c4dae9;
+	border-bottom: 1px solid #c4dae9;
+	border-right: 1px solid #c4dae9;
+	text-decoration: none;
+}
+
+.todo-submit {
+	-webkit-appearance: none;
+	-webkit-background-clip: border-box;
+	-webkit-background-origin: padding-box;
+	-webkit-background-size: auto;
+	-webkit-box-shadow: rgb(100, 190, 241) 0px 1px 1px 0px inset;
+	-webkit-font-smoothing: subpixel-antialiased;
+	-webkit-writing-mode: horizontal-tb;
+	align-items: flex-start;
+	background-attachment: scroll;
+	background-clip: border-box;
+	background-color: rgba(0, 0, 0, 0);
+	background-image: linear-gradient(rgb(36, 136, 212) 0px,
+		rgb(28, 91, 173) 100%);
+	background-origin: padding-box;
+	background-size: auto;
+	border-bottom-color: rgb(0, 88, 156);
+	border-bottom-left-radius: 4px;
+	border-bottom-right-radius: 4px;
+	border-bottom-style: solid;
+	border-bottom-width: 1px;
+	border-image-outset: 0px;
+	border-image-repeat: stretch;
+	border-image-slice: 100%;
+	border-image-source: none;
+	border-image-width: 1;
+	border-left-color: rgb(12, 117, 187);
+	border-left-style: solid;
+	border-left-width: 1px;
+	border-right-color: rgb(12, 117, 187);
+	border-right-style: solid;
+	border-right-width: 1px;
+	border-top-color: rgb(25, 146, 218);
+	border-top-left-radius: 4px;
+	border-top-right-radius: 4px;
+	border-top-style: solid;
+	border-top-width: 1px;
+	box-shadow: rgb(100, 190, 241) 0px 1px 1px 0px inset;
+	box-sizing: border-box;
+	color: rgb(255, 255, 255);
+	cursor: pointer;
+	display: inline-block;
+	font-family: 'Lucida Grande', Helvetica, Arial, Verdana, sans-serif;
+	font-size: 13px;
+	height: 35px;
+	letter-spacing: normal;
+	line-height: 19px;
+	margin-bottom: 0px;
+	margin-left: 0px;
+	margin-right: 0px;
+	margin-top: 0px;
+	padding-bottom: 7px;
+	padding-left: 24px;
+	padding-right: 24px;
+	padding-top: 7px;
+	text-align: center;
+	text-decoration: none;
+	text-indent: 0px;
+	text-rendering: optimizelegibility;
+	text-shadow: none;
+	text-transform: none;
+	width: 91px;
+	word-spacing: 0px;
+	writing-mode: lr-tb;
 }

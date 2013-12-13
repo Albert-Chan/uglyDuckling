@@ -1,26 +1,39 @@
 <!doctype html>
 <html ng-app>
-  <head>
-    <script src="lib/angular/angular.js"></script>
-    <script src="js/todo.js"></script>
-    <link rel="stylesheet" href="css/todo.css">
-  </head>
-  <body>
-    <h5>Put it on a list, now you won't need to spend brain power remembering it.</h5>
-    <div ng-controller="TodoCtrl">
-      <span>{{remaining()}} of {{todos.length}} remaining</span>
-      [ <a href="" ng-click="archive()">archive</a> ]
-      <ul class="unstyled">
-        <li ng-repeat="todo in todos">
-          <input type="buttom" ng-model="todo.done">
-          <span class="done-{{todo.done}}">{{todo.text}}</span>
-        </li>
-      </ul>
-      <form ng-submit="addTodo()">
-        <input type="text" ng-model="todoText"  size="30"
-               placeholder="add new todo here">
-        <input class="btn-primary" type="submit" value="add">
-      </form>
-    </div>
-  </body>
+<head>
+<script src="lib/angular/angular.js"></script>
+<script src="js/todo.js"></script>
+<link rel="stylesheet" href="css/todo.css">
+</head>
+<body>
+	<h5>Put it on a list, now you won't need to spend brain power
+		remembering it.</h5>
+	<div ng-controller="TodoCtrl" class="todo-pane">
+		<span>Remaining: {{remainingCount}}</span> [ <a href=""
+			ng-click="archive()">archive</a> ]
+		<ul class="todo-items">
+			<li ng-repeat="todo in todos |filter:{dismissed : false}">
+				<div>
+					<div>
+						<span class="done-{{todo.done}}">{{todo.text}}</span>
+					</div>
+					<div class="todo-item-menu">
+						<span class="todo-submit" ng-click="done(todo)">Done</span> <span
+							class="todo-submit" ng-click="dismiss(todo)">Dismiss</span>
+					</div>
+				</div>
+			</li>
+			<li>
+				<form ng-submit="addTodo()">
+					<textarea ng-model="todoText" cols="112" rows="3"
+						placeholder="Add new todo here..."></textarea>
+					<div class="todo-item-menu">
+						<input class="todo-submit" type="submit" value="Add">
+					</div>
+				</form>
+			</li>
+		</ul>
+
+	</div>
+</body>
 </html>
