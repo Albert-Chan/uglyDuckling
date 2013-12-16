@@ -9,13 +9,14 @@ public class Todo {
 	private String id;
 	private String summary;
 	private String description;
+	private boolean done = false;
+	private boolean dismissed = false;
 
 	public Todo() {
 
 	}
 
-	public Todo(String id, String summary) {
-		this.id = id;
+	public Todo(String summary) {
 		this.summary = summary;
 	}
 
@@ -42,5 +43,22 @@ public class Todo {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+	
+	public boolean isDone() {
+		return done;
+	}
+
+	public void setDone(boolean done) {
+		this.done = done;
+	}
+
+	public boolean isDismissed() {
+		return dismissed;
+	}
+
+	public void setDismissed(boolean dismissed) {
+		this.dismissed = dismissed;
+	}
+
 
 }

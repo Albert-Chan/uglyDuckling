@@ -16,6 +16,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Request;
 import javax.ws.rs.core.UriInfo;
 
+import org.codehaus.jettison.json.JSONArray;
+
 
 // Will map the resource to the URL todos
 @Path("/todos")
@@ -29,22 +31,22 @@ public class TodosResource {
   Request request;
 
 
-  // Return the list of todos to the user in the browser
-  @GET
-  @Produces(MediaType.TEXT_XML)
-  public List<Todo> getTodosBrowser() {
-    List<Todo> todos = new ArrayList<Todo>();
-    todos.addAll(TodoDao.instance.getModel().values());
-    return todos; 
-  }
+//  // Return the list of todos to the user in the browser
+//  @GET
+//  @Produces(MediaType.TEXT_XML)
+//  public List<Todo> getTodosBrowser() {
+//    List<Todo> todos = new ArrayList<Todo>();
+//    todos.addAll(TodoDao.instance.getModel().values());
+//    return todos; 
+//  }
   
   // Return the list of todos for applications
   @GET
-  @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-  public List<Todo> getTodos() {
-    List<Todo> todos = new ArrayList<Todo>();
-    todos.addAll(TodoDao.instance.getModel().values());
-    return todos; 
+  @Produces( MediaType.APPLICATION_JSON)
+  public JSONArray getTodos() {
+    List<String> todos = new ArrayList<String>();
+    todos.add("aa");
+    return new JSONArray(todos); 
   }
   
   
@@ -66,11 +68,11 @@ public class TodosResource {
       @FormParam("summary") String summary,
       @FormParam("description") String description,
       @Context HttpServletResponse servletResponse) throws IOException {
-    Todo todo = new Todo(id,summary);
+    Todo todo = new Todo(summary);
     if (description!=null){
       todo.setDescription(description);
     }
-    TodoDao.instance.getModel().put(id, todo);
+    TodoDao.instance.add(todo);
     
     servletResponse.sendRedirect("../createTodo.html");
   }

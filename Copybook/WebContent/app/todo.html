@@ -1,9 +1,18 @@
 <!doctype html>
-<html ng-app>
+<html ng-app="todoApp">
 <head>
-<script src="lib/angular/angular.js"></script>
-<script src="js/todo.js"></script>
 <link rel="stylesheet" href="css/todo.css">
+
+<script src="lib/angular/angular.js"></script>
+<script src="lib/angular/angular-animate.js"></script>
+<script src="lib/angular/angular-resource.js"></script>
+<script src="lib/angular/angular-route.js"></script>
+
+<script src="js/todo-app.js"></script>
+<script src="js/todo-animations.js"></script>
+<script src="js/todo-controllers.js"></script>
+<script src="js/todo-filters.js"></script>
+<script src="js/todo-services.js"></script>
 </head>
 <body>
 	<h5>Put it on a list, now you won't need to spend brain power
@@ -15,7 +24,7 @@
 			<li ng-repeat="todo in todos |filter:{dismissed : false}">
 				<div>
 					<div>
-						<span class="done-{{todo.done}}">{{todo.text}}</span>
+						<span class="done-{{todo.done}}">{{todo.summary}}</span>
 					</div>
 					<div class="todo-item-menu">
 						<span class="todo-submit" ng-click="done(todo)">Done</span> <span

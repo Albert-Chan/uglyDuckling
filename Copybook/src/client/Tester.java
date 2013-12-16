@@ -19,7 +19,7 @@ public class Tester {
     Client client = Client.create(config);
     WebResource service = client.resource(getBaseURI());
     // create one todo
-    Todo todo = new Todo("3", "Blabla");
+    Todo todo = new Todo( "Blabla");
     ClientResponse response = service.path("rest").path("todos")
         .path(todo.getId()).accept(MediaType.APPLICATION_XML)
         .put(ClientResponse.class, todo);
