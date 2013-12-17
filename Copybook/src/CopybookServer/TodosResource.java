@@ -16,8 +16,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Request;
 import javax.ws.rs.core.UriInfo;
 
-import org.codehaus.jettison.json.JSONArray;
-
 
 // Will map the resource to the URL todos
 @Path("/todos")
@@ -43,10 +41,10 @@ public class TodosResource {
   // Return the list of todos for applications
   @GET
   @Produces( MediaType.APPLICATION_JSON)
-  public JSONArray getTodos() {
-    List<String> todos = new ArrayList<String>();
-    todos.add("aa");
-    return new JSONArray(todos); 
+  public List<Todo> getTodos() {
+    List<Todo> todos = new ArrayList<Todo>();
+    todos.addAll(TodoDao.instance.getModel().values());
+    return todos; 
   }
   
   
