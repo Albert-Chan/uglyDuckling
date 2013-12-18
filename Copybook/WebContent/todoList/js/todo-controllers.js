@@ -9,18 +9,18 @@ todoControllers.controller('TodoCtrl', [ '$scope', 'ListTodo',
 			$scope.todos = ListTodo.getTodos();
 
 			$scope.addTodo = function() {
-				$scope.todos.todo.push({
+				$scope.todos.push({
 					summary : $scope.todoText,
-					done : "false",
-					dismissed : "false"
+					done : false,
+					dismissed : false
 				});
 				$scope.todoText = '';
 			};
 
 			$scope.remaining = function() {
 				var count = 0;
-				angular.forEach($scope.todos.todo, function(todo) {
-					if (todo.done == "false" && todo.dismissed == "false") {
+				angular.forEach($scope.todos, function(todo) {
+					if (!todo.done && !todo.dismissed) {
 						count++;
 					}
 				});
@@ -28,11 +28,11 @@ todoControllers.controller('TodoCtrl', [ '$scope', 'ListTodo',
 			};
 
 			$scope.archive = function() {
-				var oldTodos = $scope.todos.todo;
-				$scope.todos.todo = [];
+				var oldTodos = $scope.todos;
+				$scope.todos = [];
 				angular.forEach(oldTodos, function(todo) {
-					if (todo.done == "false" && todo.dismissed == "false")
-						$scope.todos.todo.push(todo);
+					if (!todo.done && !todo.dismissed)
+						$scope.todos.push(todo);
 				});
 			};
 
@@ -44,7 +44,7 @@ todoControllers.controller('TodoCtrl', [ '$scope', 'ListTodo',
 				todo.dismissed = true;
 			};
 
-			$scope.$watch('todos.todo', function() {
+			$scope.$watch('todos', function() {
 				$scope.remainingCount = $scope.remaining();
 			}, true);
 
