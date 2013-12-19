@@ -1,5 +1,6 @@
 package CopybookServer;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
@@ -12,26 +13,22 @@ public enum TodoDao {
 
 	private TodoDao() {
 
-		Todo todo = new Todo("learn angular");
-		todo.setDescription("Set descriptions");
-		todo.setDone(true);
-		add(todo);
-		todo = new Todo("build an angular app");
-		todo.setDescription("Read complete http://angularjs.org/");
-		add(todo);
-
 	}
 
 	public Map<String, Todo> getModel() {
 		return contentProvider;
 	}
+	
+	public Collection<Todo> list() throws OperationException {
+		return contentProvider.values();
+	}
 
-	public void add(Todo todo) {
+	public void add(Todo todo) throws OperationException {
 		long index = counter.incrementAndGet();
 		contentProvider.put(Long.toString(index), todo);
 	}
 
-	public void remove(Todo todo) {
+	public void remove(Todo todo) throws OperationException {
 		contentProvider.remove(todo.getId());
 	}
 

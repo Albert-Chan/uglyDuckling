@@ -1,11 +1,11 @@
 package CopybookServer;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.Consumes;
-import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -16,66 +16,65 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Request;
 import javax.ws.rs.core.UriInfo;
 
-
 // Will map the resource to the URL todos
 @Path("/todos")
 public class TodosResource {
 
-  // Allows to insert contextual objects into the class, 
-  // e.g. ServletContext, Request, Response, UriInfo
-  @Context
-  UriInfo uriInfo;
-  @Context
-  Request request;
+	// Allows to insert contextual objects into the class,
+	// e.g. ServletContext, Request, Response, UriInfo
+	@Context
+	UriInfo uriInfo;
+	@Context
+	Request request;
 
+	// // Return the list of todos to the user in the browser
+	// @GET
+	// @Produces(MediaType.TEXT_XML)
+	// public List<Todo> getTodosBrowser() {
+	// List<Todo> todos = new ArrayList<Todo>();
+	// todos.addAll(TodoDao.instance.getModel().values());
+	// return todos;
+	// }
 
-//  // Return the list of todos to the user in the browser
-//  @GET
-//  @Produces(MediaType.TEXT_XML)
-//  public List<Todo> getTodosBrowser() {
-//    List<Todo> todos = new ArrayList<Todo>();
-//    todos.addAll(TodoDao.instance.getModel().values());
-//    return todos; 
-//  }
-  
-  // Return the list of todos for applications
-  @GET
-  @Produces( MediaType.APPLICATION_JSON)
-  public List<Todo> getTodos() {
-    List<Todo> todos = new ArrayList<Todo>();
-    todos.addAll(TodoDao.instance.getModel().values());
-    return todos; 
-  }
-  
-  
-  // retuns the number of todos
-  // use http://localhost:8080/de.vogella.jersey.todo/rest/todos/count
-  // to get the total number of records
-  @GET
-  @Path("count")
-  @Produces(MediaType.TEXT_PLAIN)
-  public String getCount() {
-    int count = TodoDao.instance.getModel().size();
-    return String.valueOf(count);
-  }
-  
-	@POST
+	// Return the list of todos for applications
+	@GET
 	@Produces(MediaType.APPLICATION_JSON)
+	public List<Todo> getTodos() {
+		List<Todo> todos = new ArrayList<Todo>();
+		todos.addAll(TodoDao.instance.getModel().values());
+		return todos;
+	}
+
+	// retuns the number of todos
+	// use http://localhost:8080/de.vogella.jersey.todo/rest/todos/count
+	// to get the total number of records
+	@GET
+	@Path("count")
+	@Produces(MediaType.TEXT_PLAIN)
+	public String getCount() {
+		int count = TodoDao.instance.getModel().size();
+		return String.valueOf(count);
+	}
+
+	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	public void newTodo(Todo todo, @Context HttpServletResponse servletResponse)
 			throws IOException {
-		TodoDao.instance.add(todo);
-		servletResponse.setStatus(HttpServletResponse.SC_OK);
+		try {
+			TodoDao.instance.add(todo);
+		} catch (OperationException e) {
+			servletResponse.sendError(HttpServletResponse.SC_NOT_MODIFIED);
+		}
+		servletResponse.sendError(HttpServletResponse.SC_CREATED);
 	}
-  
-  
-  // Defines that the next path parameter after todos is
-  // treated as a parameter and passed to the TodoResources
-  // Allows to type http://localhost:8080/de.vogella.jersey.todo/rest/todos/1
-  // 1 will be treaded as parameter todo and passed to TodoResource
-  @Path("{todo}")
-  public TodoResource getTodo(@PathParam("todo") String id) {
-    return new TodoResource(uriInfo, request, id);
-  }
-  
-} 
+
+	// Defines that the next path parameter after todos is
+	// treated as a parameter and passed to the TodoResources
+	// Allows to type http://localhost:8080/de.vogella.jersey.todo/rest/todos/1
+	// 1 will be treaded as parameter todo and passed to TodoResource
+	@Path("{todo}")
+	public TodoResource getTodo(@PathParam("todo") String id) {
+		return new TodoResource(uriInfo, request, id);
+	}
+
+}

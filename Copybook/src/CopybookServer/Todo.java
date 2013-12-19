@@ -9,6 +9,8 @@ public class Todo {
 	private String id;
 	private String summary;
 	private String description;
+	private long createdTime;
+	private long lastModified;
 	private boolean done = false;
 	private boolean dismissed = false;
 
@@ -60,5 +62,20 @@ public class Todo {
 		this.dismissed = dismissed;
 	}
 
+	public long getCreatedTime() {
+		return createdTime;
+	}
 
+	public void setCreatedTime(long created) {
+		this.createdTime = created;
+	}
+
+	public long getLastModified() {
+		return lastModified;
+	}
+
+	public void setLastModified(long lastModified) {
+		this.lastModified = lastModified;
+	}
+	
 }

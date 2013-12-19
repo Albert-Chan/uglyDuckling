@@ -9,10 +9,14 @@ todoControllers.controller('TodoCtrl', [ '$scope', 'ListTodo',
 			$scope.todos = ListTodo.getTodos();
 
 			$scope.addTodo = function() {
+				if ($scope.todoText == undefined || $scope.todoText == "") {
+					return;
+				}
 				var newTodo = new ListTodo;
 				newTodo.summary = $scope.todoText;
 				newTodo.done = false;
 				newTodo.dismissed = false;
+				newTodo.createdTime = (new Date()).valueOf();
 				$scope.todos.push(newTodo);
 				$scope.todoText = '';
 				newTodo.$save();

@@ -21,10 +21,13 @@
 		<span>Remaining: {{remainingCount}}</span> [ <a href=""
 			ng-click="archive()">archive</a> ]
 		<ul class="todo-items">
-			<li ng-repeat="todo in todos |filter:{dismissed : false}">
+			<li ng-repeat="todo in todos | filter:{dismissed : false} | orderBy:'createdTime'">
 				<div>
 					<div>
 						<span class="done-{{todo.done}}">{{todo.summary}}</span>
+					</div>
+					<div>
+						Created at: {{todo.createdTime | date:'yyyy-MM-dd HH:mm:ss Z'}}
 					</div>
 					<div class="todo-item-menu">
 						<span class="todo-submit" ng-click="done(todo)">Done</span> <span
