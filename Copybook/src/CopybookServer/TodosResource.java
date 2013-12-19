@@ -59,21 +59,14 @@ public class TodosResource {
     return String.valueOf(count);
   }
   
-  @POST
-  @Produces(MediaType.TEXT_HTML)
-  @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-  public void newTodo(@FormParam("id") String id,
-      @FormParam("summary") String summary,
-      @FormParam("description") String description,
-      @Context HttpServletResponse servletResponse) throws IOException {
-    Todo todo = new Todo(summary);
-    if (description!=null){
-      todo.setDescription(description);
-    }
-    TodoDao.instance.add(todo);
-    
-    servletResponse.sendRedirect("../createTodo.html");
-  }
+	@POST
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public void newTodo(Todo todo, @Context HttpServletResponse servletResponse)
+			throws IOException {
+		TodoDao.instance.add(todo);
+		servletResponse.setStatus(HttpServletResponse.SC_OK);
+	}
   
   
   // Defines that the next path parameter after todos is

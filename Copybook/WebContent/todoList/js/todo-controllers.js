@@ -9,12 +9,13 @@ todoControllers.controller('TodoCtrl', [ '$scope', 'ListTodo',
 			$scope.todos = ListTodo.getTodos();
 
 			$scope.addTodo = function() {
-				$scope.todos.push({
-					summary : $scope.todoText,
-					done : false,
-					dismissed : false
-				});
+				var newTodo = new ListTodo;
+				newTodo.summary = $scope.todoText;
+				newTodo.done = false;
+				newTodo.dismissed = false;
+				$scope.todos.push(newTodo);
 				$scope.todoText = '';
+				newTodo.$save();
 			};
 
 			$scope.remaining = function() {
