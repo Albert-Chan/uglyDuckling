@@ -25,8 +25,6 @@ exports.todo = function(req, res, next, id) {
  */
 exports.create = function(req, res) {
     var todo = new Todo(req.body);
-    todo.summary = req.summary;
-
 
     todo.save(function(err) {
         if (err) {
@@ -89,7 +87,7 @@ exports.show = function(req, res) {
  * List of Todo
  */
 exports.all = function(req, res) {
-    Todo.find().sort('-createdTime').populate('user', 'name username').exec(function(err, todos) {
+    Todo.find().sort('-createdTime').exec(function(err, todos) {
         if (err) {
             res.render('error', {
                 status: 500

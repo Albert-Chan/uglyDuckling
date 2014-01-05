@@ -4,8 +4,6 @@
 
 var todoApp = angular.module('todoApp', [
   'ngRoute',
-  'todoAnimations',
-
   'todoControllers',
   'todoFilters',
   'todoServices'
@@ -14,15 +12,13 @@ var todoApp = angular.module('todoApp', [
 todoApp.config(['$routeProvider',
   function($routeProvider) {
     $routeProvider.
-      when('/phones', {
-        templateUrl: 'partials/phone-list.html',
-        controller: 'PhoneListCtrl'
+      when('/todos', {
+        templateUrl: 'views/index.html'
       }).
-      when('/phones/:phoneId', {
-        templateUrl: 'partials/phone-detail.html',
-        controller: 'PhoneDetailCtrl'
+      when('/todos/:todoId', {
+        templateUrl: 'views/todo-detail.html'
       }).
       otherwise({
-        redirectTo: '/phones'
+        redirectTo: 'views/index.html'
       });
   }]);

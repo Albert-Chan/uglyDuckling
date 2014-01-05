@@ -46,6 +46,12 @@ body,textarea {
 	text-decoration: none;
 }
 
+input,
+textarea
+{
+  width: auto;
+}
+
 .todo-submit {
 	-webkit-appearance: none;
 	-webkit-background-clip: border-box;

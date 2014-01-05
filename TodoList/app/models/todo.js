@@ -22,7 +22,11 @@ var TodoSchema = new Schema({
     },
     done: {
         type: Boolean,
-        default: false,   
+        default: false,
+    },
+    dismissed: {
+        type: Boolean,
+        default: false,
     }
 });
 
@@ -39,7 +43,7 @@ TodoSchema.path('summary').validate(function(summary) {
 TodoSchema.statics.load = function(id, cb) {
     this.findOne({
         _id: id
-    }).populate('user', 'name username').exec(cb);
+    }).exec(cb);
 };
 
 mongoose.model('Todo', TodoSchema);

@@ -1,3 +1,34 @@
-<section data-ng-controller="IndexController">
-	<h1>This is the home view</h1>
+<section>
+		<h5>Put it on a list, now you won't need to spend brain power
+		remembering it.</h5>
+	<div ng-controller="TodoCtrl" class="todo-pane">
+		<span>Remaining: {{remainingCount}}</span> [ <a href=""
+			ng-click="archive()">archive</a> ]
+		<ul class="todo-items">
+			<li ng-repeat="todo in todos | filter:{dismissed : false} | orderBy:'createdTime'">
+				<div>
+					<div>
+						<span class="done-{{todo.done}}">{{todo.summary}}</span>
+					</div>
+					<div>
+						Created at: {{todo.createdTime | date:'yyyy-MM-dd HH:mm:ss Z'}}
+					</div>
+					<div class="todo-item-menu">
+						<span class="todo-submit" ng-click="done(todo)">Done</span> <span
+							class="todo-submit" ng-click="dismiss(todo)">Dismiss</span>
+					</div>
+				</div>
+			</li>
+			<li>
+				<form ng-submit="addTodo()">
+					<textarea ng-model="todoText" cols="112" rows="3"
+						placeholder="Add new todo here..."></textarea>
+					<div class="todo-item-menu">
+						<input class="todo-submit" type="submit" value="Add">
+					</div>
+				</form>
+			</li>
+		</ul>
+
+	</div>
 </section>

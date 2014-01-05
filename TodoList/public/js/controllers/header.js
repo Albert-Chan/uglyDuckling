@@ -4,6 +4,9 @@ angular.module('mean.system').controller('HeaderController', ['$scope', 'Global'
     $scope.global = Global;
 
     $scope.menu = [{
+        'title': 'TodoList',
+        'link': 'todos'
+    }, {
         'title': 'Articles',
         'link': 'articles'
     }, {
