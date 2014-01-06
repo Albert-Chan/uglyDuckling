@@ -59,7 +59,7 @@ exports.update = function(req, res) {
 };
 
 /**
- * Delete an todo
+ * Delete a todo
  */
 exports.destroy = function(req, res) {
     var todo = req.todo;
@@ -77,7 +77,7 @@ exports.destroy = function(req, res) {
 };
 
 /**
- * Show an todo
+ * Show a todo
  */
 exports.show = function(req, res) {
     res.jsonp(req.todo);

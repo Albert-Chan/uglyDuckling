@@ -4,15 +4,15 @@
 
 var todoControllers = angular.module('todoControllers', []);
 
-todoControllers.controller('TodoCtrl', [ '$scope', 'ListTodo',
-		function($scope, ListTodo) {
-			$scope.todos = ListTodo.getTodos();
+todoControllers.controller('TodoCtrl', [ '$scope', '$location', 'TodoService',
+		function($scope, $location, TodoService) {
+			$scope.todos = TodoService.query();
 
 			$scope.addTodo = function() {
 				if ($scope.todoText == undefined || $scope.todoText == "") {
 					return;
 				}
-				var newTodo = new ListTodo;
+				var newTodo = new TodoService;
 				newTodo.summary = $scope.todoText;
 				newTodo.done = false;
 				newTodo.dismissed = false;
@@ -43,10 +43,25 @@ todoControllers.controller('TodoCtrl', [ '$scope', 'ListTodo',
 
 			$scope.done = function(todo) {
 				todo.done = true;
+				// var updatedTodo = new TodoService{
+				// 	_id : todo._id,
+				// 	createdTime : (new Date()).valueOf()
+				// 	summary: todo.summary,
+				// 	done: todo.done,
+				// 	dismissed: todo.dismissed,
+				// };
+				// updatedTodo.$update();
+				todo.$update();
+				// todo.$update((function() {
+    //         		$location.path('todos/' + todo._id);
+    //         	});
 			};
 
 			$scope.dismiss = function(todo) {
 				todo.dismissed = true;
+				// todo.$update((function() {
+    //         		$location.path('todos/' + todo._id);
+    //         	});
 			};
 
 			$scope.$watch('todos', function() {

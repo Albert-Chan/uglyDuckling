@@ -76,8 +76,12 @@ module.exports = function(app, passport, auth) {
     var index = require('../app/controllers/index');
     app.get('/', index.render);
 
-//todoList
+    //todoList
     var todos = require('../app/controllers/todos');
     app.get('/todos', todos.all);
     app.post('/todos', auth.requiresLogin, todos.create);
+    app.get('/todos/:todoId', todos.show);
+    app.put('/todos/:todoId', auth.requiresLogin, todos.update);
+
+    app.param('todoId', todos.todo);
 };
