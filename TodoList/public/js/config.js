@@ -1,7 +1,7 @@
 'use strict';
 
 //Setting up route
-angular.module('mean').config(['$routeProvider',
+angular.module('planBIG').config(['$routeProvider',
     function($routeProvider) {
         $routeProvider.
         when('/articles', {
@@ -19,6 +19,12 @@ angular.module('mean').config(['$routeProvider',
         when('/', {
             templateUrl: 'views/index.html'
         }).
+        when('/todos', {
+            templateUrl: 'views/index.html'
+        }).
+        when('/todos/:todoId', {
+            templateUrl: 'views/todo-detail.html'
+        }).
         otherwise({
             redirectTo: '/'
         });
@@ -26,7 +32,7 @@ angular.module('mean').config(['$routeProvider',
 ]);
 
 //Setting HTML5 Location Mode
-angular.module('mean').config(['$locationProvider',
+angular.module('planBIG').config(['$locationProvider',
     function($locationProvider) {
         $locationProvider.hashPrefix('!');
     }

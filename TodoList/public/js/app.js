@@ -1,6 +1,12 @@
 'use strict';
 
-angular.module('mean', ['ngCookies', 'ngResource', 'ngRoute', 'ui.bootstrap', 'ui.route', 'mean.system', 'mean.articles']);
+angular.module('planBIG', ['ngCookies', 'ngResource', 'ngRoute', 'ui.bootstrap', 'ui.route', 'planBIG.system', 'planBIG.articles', 'planBIG.todoList']);
 
-angular.module('mean.system', []);
-angular.module('mean.articles', []);
+angular.module('planBIG.system', []);
+angular.module('planBIG.articles', []);
+
+angular.module('planBIG.todoList', [
+  'ngRoute',
+  'todoControllers',
+  'todoServices'
+]);
