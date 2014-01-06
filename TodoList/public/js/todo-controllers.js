@@ -43,25 +43,12 @@ todoControllers.controller('TodoCtrl', [ '$scope', '$location', 'TodoService',
 
 			$scope.done = function(todo) {
 				todo.done = true;
-				// var updatedTodo = new TodoService{
-				// 	_id : todo._id,
-				// 	createdTime : (new Date()).valueOf()
-				// 	summary: todo.summary,
-				// 	done: todo.done,
-				// 	dismissed: todo.dismissed,
-				// };
-				// updatedTodo.$update();
 				todo.$update();
-				// todo.$update((function() {
-    //         		$location.path('todos/' + todo._id);
-    //         	});
 			};
 
 			$scope.dismiss = function(todo) {
 				todo.dismissed = true;
-				// todo.$update((function() {
-    //         		$location.path('todos/' + todo._id);
-    //         	});
+				todo.$update();
 			};
 
 			$scope.$watch('todos', function() {
