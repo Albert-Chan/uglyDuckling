@@ -1,0 +1,29 @@
+<section>
+    <div ng-controller="GroupCtrl" class="">
+        <div>
+            Create a group:
+            <form ng-submit="addGroup()">
+                <textarea ng-model="groupName" cols="32" rows="1"
+                          placeholder="Input your group name here..."></textarea>
+                <div class="">
+                    <input class="" type="submit" value="Create">
+                </div>
+            </form>
+        </div>
+        <div>
+            Find a group:
+        </div>
+        <ul class="group-items">
+            <li ng-repeat="group in groups | orderBy:'createdTime'">
+                <div>
+                    <div class="">
+                        {{group.groupName}}
+                    </div>
+                    <div>
+                        Created at: {{group.createdTime | date:'yyyy-MM-dd HH:mm:ss Z'}}
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</section>
