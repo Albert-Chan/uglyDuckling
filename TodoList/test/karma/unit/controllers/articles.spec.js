@@ -18,7 +18,7 @@
             });
 
             // Load the controllers module
-            beforeEach(module('mean'));
+            beforeEach(module('planBIG'));
 
             // Initialize the controller and a mock scope
             var ArticlesController,
