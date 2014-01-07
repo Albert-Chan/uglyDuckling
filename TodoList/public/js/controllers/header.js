@@ -8,7 +8,7 @@ angular.module('planBIG.system').controller('HeaderController', ['$scope', 'Glob
         'link': 'todos'
     }, {
         'title': 'Group',
-        'link': 'group'
+        'link': 'groups'
     }, {
         'title': 'Articles',
         'link': 'articles'

@@ -2,8 +2,8 @@
 
 /* Services */
 
-angular.module('groupServices', [ 'ngResource' ]).factory('GroupService', [ '$resource', function ($resource) {
-    return $resource('group/:groupId', {
+angular.module('planBIG.group').factory('GroupService', [ '$resource', function ($resource) {
+    return $resource('groups/:groupId', {
         todoId: '@_id'
     }, {
         update: {

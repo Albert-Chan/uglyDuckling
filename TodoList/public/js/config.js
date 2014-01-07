@@ -22,10 +22,10 @@ angular.module('planBIG').config(['$routeProvider',
             when('/todos/:todoId', {
                 templateUrl: 'views/todo-detail.html'
             }).
-            when('/group', {
+            when('/groups', {
                 templateUrl: 'views/group.html'
             }).
-            when('/group/:groupId', {
+            when('/groups/:groupId', {
                 templateUrl: 'views/group-detail.html'
             }).
             when('/', {

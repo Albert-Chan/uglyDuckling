@@ -1,10 +1,7 @@
 'use strict';
 
 /* Controllers */
-
-var groupControllers = angular.module('groupControllers', []);
-
-groupControllers.controller('GroupCtrl', [ '$scope', '$location', 'GroupService',
+angular.module('planBIG.group').controller('GroupCtrl', [ '$scope', '$location', 'GroupService',
     function($scope, $location, GroupService) {
         $scope.groups = GroupService.query();
 

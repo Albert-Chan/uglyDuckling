@@ -84,4 +84,13 @@ module.exports = function(app, passport, auth) {
     app.put('/todos/:todoId', auth.requiresLogin, todos.update);
 
     app.param('todoId', todos.todo);
+
+    //group
+    var groups = require('../app/controllers/groups');
+    app.get('/groups', groups.all);
+    app.post('/groups', auth.requiresLogin, groups.create);
+    app.get('/groups/:groupId', groups.show);
+    app.put('/groups/:groupId', auth.requiresLogin, groups.update);
+
+    app.param('groupId', todos.todo);
 };

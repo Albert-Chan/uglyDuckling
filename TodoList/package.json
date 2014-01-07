@@ -1,12 +1,11 @@
 {
-    "name": "mean",
-    "description": "MEAN - A Modern Stack: MongoDB, ExpressJS, AngularJS, NodeJS. (BONUS: Passport User Support).",
+    "name": "plan BIG",
+    "description": "plan BIG",
     "version": "0.1.2",
     "private": false,
-    "author": "Amos Haviv",
     "repository": {
         "type": "git",
-        "url": "https://github.com/linnovate/mean.git"
+        "url": "https://github.com/Albert-Chan/uglyDuckling.git"
     },
     "engines": {
         "node": "0.10.x",
