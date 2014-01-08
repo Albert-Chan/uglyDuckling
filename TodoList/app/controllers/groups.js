@@ -86,7 +86,14 @@ exports.show = function(req, res) {
  * List of group
  */
 exports.all = function(req, res) {
-    Group.find().sort('-createdTime').exec(function(err, groups) {
+    var query;
+    if (req.query.groupName == undefined) {
+        query = Group.find().sort('-createdTime');
+    }
+    else {
+        query = Group.find({groupName: req.query.groupName}).sort('-createdTime')
+    }
+    query.exec(function (err, groups) {
         if (err) {
             res.render('error', {
                 status: 500
@@ -96,3 +103,33 @@ exports.all = function(req, res) {
         }
     });
 };
+
+/**
+ * join a group
+ * @param req
+ * @param res
+ */
+exports.join = function(req, res) {
+    if (req.query.groupId == undefined) {
+        return;
+    }
+    Group.findOne({_id: req.query.groupId}).exec(function (err, group) {
+        if (err) {
+            res.render('error', {
+                status: 500
+            });
+        } else {
+            group.users.push(req.user);
+            group.save(function (err) {
+                if (err) {
+                    return res.send('users/signup', {
+                        errors: err.errors,
+                        group: group
+                    });
+                } else {
+                    res.jsonp(group);
+                }
+            });
+        }
+    });
+}

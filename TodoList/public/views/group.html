@@ -1,18 +1,44 @@
 <section>
     <div ng-controller="GroupCtrl" class="">
         <div>
-            Create a group:
-            <form ng-submit="addGroup()">
-                <textarea ng-model="groupName" cols="32" rows="1"
+            <h4>Find a group:</h4>
+            <form ng-submit="searchGroup()">
+                <textarea ng-model="queryText" cols="32" rows="1"
                           placeholder="Input your group name here..."></textarea>
-                <div class="">
-                    <input class="" type="submit" value="Create">
-                </div>
+                <span class="">
+                    <input class="" type="submit" value="Search">
+                </span>
             </form>
         </div>
         <div>
-            Find a group:
+            <h4>Groups founded:</h4>
+            <ul class="group-items">
+                <li ng-repeat="group in groupsMatched | orderBy:'createdTime'">
+                    <div>
+                        <div class="">
+                            {{group.groupName}}
+                        </div>
+                        <div>
+                            Created at: {{group.createdTime | date:'yyyy-MM-dd HH:mm:ss Z'}}
+                        </div>
+                    </div>
+                    <button type="button" ng-click="joinGroup(group)">Join</button>
+                </li>
+            </ul>
         </div>
+        <hr>
+        <div>
+            <h4>Create a group:</h4>
+            <form ng-submit="addGroup()">
+                <textarea ng-model="groupName" cols="32" rows="1"
+                          placeholder="Input your group name here..."></textarea>
+                <span class="">
+                    <input class="" type="submit" value="Create">
+                </span>
+            </form>
+        </div>
+        <hr>
+        <h4>My groups:</h4>
         <ul class="group-items">
             <li ng-repeat="group in groups | orderBy:'createdTime'">
                 <div>

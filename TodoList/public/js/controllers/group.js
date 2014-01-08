@@ -1,8 +1,8 @@
 'use strict';
 
 /* Controllers */
-angular.module('planBIG.group').controller('GroupCtrl', [ '$scope', '$location', 'GroupService',
-    function($scope, $location, GroupService) {
+angular.module('planBIG.group').controller('GroupCtrl', [ '$scope', '$location', '$http', 'GroupService',
+    function($scope, $location, $http, GroupService) {
         $scope.groups = GroupService.query();
 
         $scope.addGroup = function() {
@@ -21,11 +21,21 @@ angular.module('planBIG.group').controller('GroupCtrl', [ '$scope', '$location',
             if ($scope.queryText == undefined || $scope.queryText == "") {
                 return;
             }
-            GroupService.get({
-                groupName: $routeParams.groupName
-            }, function(group) {
-                $scope.group = group;
+            $scope.groupsMatched = GroupService.query({
+                groupName: $scope.queryText
             });
+        };
+
+        $scope.joinGroup = function (group) {
+            $http.get('/join?groupId=' + group._id).
+                success(function (data, status, headers, config) {
+                    // this callback will be called asynchronously
+                    // when the response is available
+                }).
+                error(function (data, status, headers, config) {
+                    // called asynchronously if an error occurs
+                    // or server returns response with an error status.
+                });
         };
 
     } ]);

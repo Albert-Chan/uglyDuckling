@@ -91,6 +91,7 @@ module.exports = function(app, passport, auth) {
     app.post('/groups', auth.requiresLogin, groups.create);
     app.get('/groups/:groupId', groups.show);
     app.put('/groups/:groupId', auth.requiresLogin, groups.update);
+    app.get('/join', groups.join);
 
-    app.param('groupId', todos.todo);
+    app.param('groupId', groups.group);
 };
