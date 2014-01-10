@@ -26,6 +26,12 @@ angular.module('planBIG.group').controller('GroupCtrl', [ '$scope', '$location',
             });
         };
 
+        $scope.joined = function (group, user) {
+            return group.founders.indexOf(user) != -1 ||
+                group.admins.indexOf(user) != -1 ||
+                group.users.indexOf(user) != -1
+        };
+
         $scope.joinGroup = function (group) {
             $http.get('/join?groupId=' + group._id).
                 success(function (data, status, headers, config) {

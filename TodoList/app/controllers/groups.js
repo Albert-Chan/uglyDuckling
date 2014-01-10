@@ -88,10 +88,12 @@ exports.show = function(req, res) {
 exports.all = function(req, res) {
     var query;
     if (req.query.groupName == undefined) {
-        query = Group.find().sort('-createdTime');
+        query = Group.find(
+            { $or:[ {founders:req.user}, {admins:req.user}, {users:req.user} ] }).sort('-createdTime');
     }
     else {
-        query = Group.find({groupName: req.query.groupName}).sort('-createdTime')
+        query = Group.find(
+            {groupName: { $regex: req.query.groupName, $options: 'i' } }).sort('-createdTime')
     }
     query.exec(function (err, groups) {
         if (err) {
